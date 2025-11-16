@@ -28,7 +28,7 @@ export default function Home() {
 
       <h2>Welcome, {user.fullname}! 👋</h2>
 
-      {/* Logout Button */}
+    {/* Logout Button */}
       <button
         onClick={handleLogout}
         style={{

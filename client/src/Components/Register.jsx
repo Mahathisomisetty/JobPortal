@@ -9,7 +9,7 @@ export default function Register() {
     phonenumber: "",
   });
 
-  const [registerUser, { isLoading, error, isSuccess }] =
+  const [registerUser, { isLoading, isSuccess }] =
     useRegisterUserMutation();
 
   const handleChange = (e) => {
@@ -19,18 +19,29 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await registerUser(form);
+
     alert("Registration Successful!");
+
+    // CLEAR FORM
+    setForm({
+      fullname: "",
+      email: "",
+      password: "",
+      phonenumber: "",
+    });
   };
 
   return (
     <div>
       <h2>Register</h2>
+
       <form onSubmit={handleSubmit} style={{ width: 300 }}>
 
         <input
           type="text"
           name="fullname"
           placeholder="Full Name"
+          value={form.fullname}
           onChange={handleChange}
           required
         /><br/><br/>
@@ -39,6 +50,7 @@ export default function Register() {
           type="email"
           name="email"
           placeholder="Email"
+          value={form.email}
           onChange={handleChange}
           required
         /><br/><br/>
@@ -47,6 +59,7 @@ export default function Register() {
           type="password"
           name="password"
           placeholder="Password"
+          value={form.password}
           onChange={handleChange}
           required
         /><br/><br/>
@@ -55,14 +68,18 @@ export default function Register() {
           type="number"
           name="phonenumber"
           placeholder="Phone Number"
+          value={form.phonenumber}
           onChange={handleChange}
           required
         /><br/><br/>
 
-        <button type="submit" disabled={isLoading}>Register</button>
+        <button type="submit" disabled={isLoading}>
+          Register
+        </button>
 
-        {error && <p style={{ color: "red" }}>Something went wrong</p>}
-        {isSuccess && <p style={{ color: "green" }}>Registered!</p>}
+        {isSuccess && (
+          <p style={{ color: "green" }}>Registered!</p>
+        )}
       </form>
     </div>
   );
