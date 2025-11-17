@@ -38,7 +38,7 @@ export default function Register() {
   }
 
   return (
-    <div className="register-container">
+    <div >
       <h2>Register</h2>
 
       <form onSubmit={handleSubmit}>
@@ -72,6 +72,7 @@ export default function Register() {
         <button type="submit" disabled={isLoading}>
           {isLoading ? "Registering…" : "Register"}
         </button>
+        <p>Already having Account? <a href="/login">Login</a></p>
       </form>
 
       {successMsg && <p className="success-message">{successMsg}</p>}
