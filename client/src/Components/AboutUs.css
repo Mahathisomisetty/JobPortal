@@ -1,0 +1,48 @@
+.about-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+}
+
+.about-title {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+.about-text {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 15px;
+  color: #374151;
+}
+
+.section-title {
+  font-size: 22px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  color: #111827;
+  font-weight: bold;
+}
+
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.about-list li {
+  font-size: 16px;
+  padding: 8px 0;
+  color: #374151;
+}
+
+.about-foot {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 18px;
+  color: #2563eb;
+  font-weight: 600;
+}

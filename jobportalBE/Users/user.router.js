@@ -3,7 +3,8 @@ var router = express.Router();
 var userModel = require("./user.model");
 var jwt = require("jsonwebtoken");
 
-const SECRET_KEY = "MY_SECRET_123";   // change later
+const SECRET_KEY = "MY_SECRET_123";   // Secret key
+//Get All users
 router.get("/getall", async (req, res) => {
   try {
     const data = await userModel.find({});
@@ -24,10 +25,10 @@ router.post("/register", async (req, res) => {
 
     // Create user (plain password)
     let user = new userModel({
-      fullname,
-      email,
-      password,      // storing directly
-      phonenumber,
+      fullname,      //name
+      email,         //email
+      password,      // password
+      phonenumber,   //phonenumber
     });
 
     await user.save();
@@ -38,7 +39,7 @@ router.post("/register", async (req, res) => {
     res.status(500).send({ msg: "Error while registering" });
   }
 });
-
+// get user by id
 router.get("/getUser/:id", async (req, res) => {
   try {
     const user = await userModel.findById(req.params.id);
@@ -60,12 +61,12 @@ router.post("/login", async (req, res) => {
       return res.status(400).send({ msg: "Invalid email or password" });
 
     let token = jwt.sign(
-      { id: user._id.toString(), email: user.email },
-      SECRET_KEY,
-      { expiresIn: "1h" }
+      { id: user._id.toString(), email: user.email },//payload
+      SECRET_KEY,//secretkey
+      { expiresIn: "1h" } //expiration 
     );
 
-    // ⭐ FORCE RETURN PURE STRING ID
+    // RETURN  STRING ID
     const userId = user._id.toString();
     console.log("🔥 BACKEND SENDING USER ID:", userId);
 
@@ -73,7 +74,7 @@ router.post("/login", async (req, res) => {
       msg: "Login successful",
       token: token,
       user: {
-        id: userId,                   // ⭐ ALWAYS STRING ID
+        id: userId,                   
         fullname: user.fullname,
         email: user.email,
       },

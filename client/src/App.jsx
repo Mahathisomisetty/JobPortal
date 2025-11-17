@@ -1,24 +1,28 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Home from "./Components/Home";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
-import Home from "./Components/Home";
-
-function App() {
+import Profile from "./Components/Profile";
+import UserApplications from "./Components/UserApplications";
+import AboutUs from "./Components/AboutUs";
+import Footer from "./Components/Footer";
+export default function App() {
   return (
-    <div style={{ padding: 20 }}>
-      <nav style={{ marginBottom: 20 }}>
-        <Link to="/" style={{ marginRight: 15 }}>Home</Link>
-        <Link to="/login" style={{ marginRight: 15 }}>Login</Link>
-        <Link to="/register">Register</Link>
-      </nav>
+    <>
+      <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
+      <Routes >
+        {/* PUBLIC ROUTES */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/aboutus" element={<AboutUs/>}/>
+        {/* PROTECTED ROUTES */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/userApplications" element={<UserApplications />} />
       </Routes>
-    </div>
+      <Footer/>
+    </>
   );
 }
-
-export default App;

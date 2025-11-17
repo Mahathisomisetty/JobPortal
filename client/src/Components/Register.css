@@ -1,0 +1,70 @@
+/* Container */
+.register-container {
+  max-width: 350px;
+  margin: 50px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Heading */
+.register-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 26px;
+}
+
+/* Inputs */
+.register-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 15px;
+  transition: border 0.2s ease;
+}
+
+.register-container input:focus {
+  border-color: #4a90e2;
+}
+
+/* Button */
+.register-container button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #4a90e2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.register-container button:hover {
+  background-color: #357ab7;
+}
+
+.register-container button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+/* Success message */
+.success-message {
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Error message */
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}

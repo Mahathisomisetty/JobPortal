@@ -1,42 +1,47 @@
 import React, { useState } from "react";
 import { useRegisterUserMutation } from "../Features/apiSlice";
+import { useNavigate } from "react-router-dom";
+import "./register.css";
 
 export default function Register() {
   const [form, setForm] = useState({
     fullname: "",
     email: "",
     password: "",
-    phonenumber: "",
   });
 
-  const [registerUser, { isLoading, isSuccess }] =
-    useRegisterUserMutation();
+  const [registerUser, { isLoading, error }] = useRegisterUserMutation();
+  const navigate = useNavigate();
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    await registerUser(form);
 
-    alert("Registration Successful!");
+    const res = await registerUser(form);
 
-    // CLEAR FORM
-    setForm({
-      fullname: "",
-      email: "",
-      password: "",
-      phonenumber: "",
-    });
-  };
+    if (res.data) {
+      setSuccessMsg(res.data.message || "Registered Successfully!");
+
+      setForm({ fullname: "", email: "", password: "" });
+
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userId", res.data.user.id);
+      }
+
+      setTimeout(() => navigate("/"), 1000);
+    }
+  }
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Register</h2>
 
-      <form onSubmit={handleSubmit} style={{ width: 300 }}>
-
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="fullname"
@@ -44,7 +49,7 @@ export default function Register() {
           value={form.fullname}
           onChange={handleChange}
           required
-        /><br/><br/>
+        />
 
         <input
           type="email"
@@ -53,7 +58,7 @@ export default function Register() {
           value={form.email}
           onChange={handleChange}
           required
-        /><br/><br/>
+        />
 
         <input
           type="password"
@@ -62,25 +67,15 @@ export default function Register() {
           value={form.password}
           onChange={handleChange}
           required
-        /><br/><br/>
-
-        <input
-          type="number"
-          name="phonenumber"
-          placeholder="Phone Number"
-          value={form.phonenumber}
-          onChange={handleChange}
-          required
-        /><br/><br/>
+        />
 
         <button type="submit" disabled={isLoading}>
-          Register
+          {isLoading ? "Registering…" : "Register"}
         </button>
-
-        {isSuccess && (
-          <p style={{ color: "green" }}>Registered!</p>
-        )}
       </form>
+
+      {successMsg && <p className="success-message">{successMsg}</p>}
+      {error && <p className="error-message">Registration failed!</p>}
     </div>
   );
 }

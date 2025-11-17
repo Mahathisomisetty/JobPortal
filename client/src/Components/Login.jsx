@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { useLoginUserMutation } from "../Features/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [loginUser] = useLoginUserMutation();
+  const navigate = useNavigate();
 
-  const [loginUser, { isLoading }] = useLoginUserMutation();
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     const res = await loginUser(form);
@@ -19,19 +16,28 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.user.id);
 
-      alert("Login Successful!");
-      window.location.href = "/";
+      navigate("/");
     }
-  };
+  }
 
   return (
     <div>
       <h2>Login</h2>
 
       <form onSubmit={handleSubmit}>
-        <input name="email" type="email" placeholder="Email" onChange={handleChange} /><br/><br/>
-        <input name="password" type="password" placeholder="Password" onChange={handleChange} /><br/><br/>
-        <button type="submit" disabled={isLoading}>Login</button>
+        <input
+          name="email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          placeholder="Email"
+        />
+        <input
+          name="password"
+          type="password"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          placeholder="Password"
+        />
+
+        <button type="submit">Login</button>
       </form>
     </div>
   );

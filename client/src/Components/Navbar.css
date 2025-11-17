@@ -1,0 +1,53 @@
+/* Navbar Wrapper */
+.navbar {
+  background-color: #1f2937;   /* dark navy */
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Logo */
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+}
+
+/* Nav Items */
+.nav-item {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: 0.3s ease;
+
+}
+
+/* Hover Effect */
+.nav-item:hover {
+  background-color: #374151; /* gray hover */
+}
+
+/* Logout Button Style */
+.logout-btn {
+  background-color: #ef4444 !important; /* red */
+  cursor: pointer;
+  color: white !important;
+}
+
+.logout-btn:hover {
+  background-color: #dc2626 !important; /* dark red */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+}
