@@ -36,7 +36,6 @@ export default function Profile() {
         </p>
 
         <p className="profile-item">
-          <i className="bi bi-file-earmark-text-fill icon"></i>&nbsp;
           <strong>Summary:</strong>&nbsp; {user.profile.Summary || "N/A"}
         </p>
 
