@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLoginUserMutation } from "../Features/apiSlice";
 import { useNavigate } from "react-router-dom";
-
+import "./Login.css"
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [loginUser] = useLoginUserMutation();

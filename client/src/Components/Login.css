@@ -1,0 +1,59 @@
+/* Style ONLY the div that wraps the login form */
+form {
+  max-width: 350px;
+  margin: 60px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  display: block;
+}
+
+/* Style only the Login title INSIDE the login form div */
+form + h2,
+h2 + form h2 {
+  color: #333;
+}
+
+/* Perfect styling for the login heading */
+div > h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 26px;
+}
+
+/* Input styling */
+form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+form input:focus {
+  border-color: #4a90e2;
+}
+
+/* Button styling */
+form button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+form button:hover {
+  background-color: #357ab7;
+}
