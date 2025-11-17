@@ -5,7 +5,9 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3500",
   }),
+
   endpoints: (builder) => ({
+
     // REGISTER USER
     registerUser: builder.mutation({
       query: (data) => ({
@@ -25,12 +27,20 @@ export const apiSlice = createApi({
     }),
 
     // GET USER BY ID
-   getUserById: builder.query({
-  query: (id) => `/users/getUser/${id}`,
-}),
+    getUserById: builder.query({
+      query: (id) => `/users/getUser/${id}`,
+    }),
+
+    // ✅ UPDATE USER
+    updateUser: builder.mutation({
+      query: ({ id, formData }) => ({
+        url: `/users/updateUser/${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+    }),
 
   }),
-
 });
 
 // Export hooks
@@ -38,4 +48,5 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useGetUserByIdQuery,
+  useUpdateUserMutation,
 } = apiSlice;

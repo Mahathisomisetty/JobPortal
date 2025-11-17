@@ -7,6 +7,7 @@ import Profile from "./Components/Profile";
 import UserApplications from "./Components/UserApplications";
 import AboutUs from "./Components/AboutUs";
 import Footer from "./Components/Footer";
+import EditProfile from "./Components/EditProfile";
 export default function App() {
   return (
     <>
@@ -21,6 +22,8 @@ export default function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/userApplications" element={<UserApplications />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
+
       </Routes>
       <Footer/>
     </>

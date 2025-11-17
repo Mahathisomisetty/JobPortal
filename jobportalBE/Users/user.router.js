@@ -84,6 +84,56 @@ router.post("/login", async (req, res) => {
     res.status(500).send({ msg: "Error during login" });
   }
 });
+// UPDATE USER BY ID
+router.put("/updateUser/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const {
+      fullname,
+      email,
+      phonenumber,
+      profile = {}
+    } = req.body;
+
+    // Prepare update object
+    const updateData = {
+      fullname,
+      email,
+      phonenumber,
+      profile: {
+        headline: profile.headline,
+        Summary: profile.Summary,
+        experience: profile.experience,
+        skills: profile.skills,
+        education: profile.education,
+        location: profile.location,
+        resume: profile.resume
+      }
+    };
+
+    // Update user
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      updateData,
+      { new: true } // return updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).send({ msg: "User not found" });
+    }
+
+    res.send({
+      msg: "Profile updated successfully",
+      user: updatedUser,
+    });
+
+  } catch (err) {
+    console.error(" Error updating user:", err);
+    res.status(500).send({ msg: "Error updating user" });
+  }
+});
+
 
 
 module.exports = router;

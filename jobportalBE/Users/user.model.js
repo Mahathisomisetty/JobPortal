@@ -7,6 +7,7 @@ var userSchema = mongoose.Schema({
     phonenumber:Number,
     profile: {
       headline: { type: String, default: "" },
+      Summary:String,
       experience: { type: Number, default: 0 },
       skills: [{ type: String }],
       resume: { type: String }, 

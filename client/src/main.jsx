@@ -6,7 +6,8 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./App/Store";
 import { BrowserRouter, createBrowserRouter } from "react-router-dom";
-
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <BrowserRouter>
