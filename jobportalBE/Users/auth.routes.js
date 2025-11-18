@@ -1,16 +1,14 @@
-var express = require("express");
-var router = express.Router();
-var userModel = require("./user.model");
-var jwt = require("jsonwebtoken");
+const express = require("express");
+const router = express.Router();
+const userModel = require("./user.model");
+const jwt = require("jsonwebtoken");
 
 const SECRET_KEY = "MY_SECRET_123";
 
-// ================================
 // REGISTER
-// ================================
 router.post("/register", async (req, res) => {
   try {
-    const { fullname, email, password, phonenumber } = req.body;
+    const { fullname, email, password, phonenumber, role } = req.body;
 
     let exist = await userModel.findOne({ email });
     if (exist) return res.status(400).send({ msg: "User already exists" });
@@ -18,11 +16,13 @@ router.post("/register", async (req, res) => {
     let user = new userModel({
       fullname,
       email,
-      password,      // plain password (your request)
+      password,
       phonenumber,
+      role: role || "user",
     });
 
     await user.save();
+
     res.send({ msg: "Registered successfully" });
 
   } catch (err) {
@@ -30,9 +30,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// ================================
-// LOGIN
-// ================================
+// LOGIN (⛔ your old one was wrong — THIS IS FIXED)
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -43,21 +41,22 @@ router.post("/login", async (req, res) => {
     if (user.password !== password)
       return res.status(400).send({ msg: "Invalid email or password" });
 
-    // Create JWT
+    const userId = user._id.toString(); // ⭐ valid ID
+
     let token = jwt.sign(
-      { id: user._id.toString(), email: user.email },
+      { id: userId, email: user.email, role: user.role },
       SECRET_KEY,
       { expiresIn: "1h" }
     );
 
-    // ⭐ FIXED: Always return a valid MongoDB ID STRING
     res.send({
       msg: "Login successful",
-      token: token,
+      token,
       user: {
-        id: user._id.toString(),      // ⭐ FIX HERE
+        id: userId,              // ⭐ ALWAYS RETURN VALID ID
         fullname: user.fullname,
         email: user.email,
+        role: user.role,
       },
     });
 

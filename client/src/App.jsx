@@ -8,24 +8,31 @@ import UserApplications from "./Components/UserApplications";
 import AboutUs from "./Components/AboutUs";
 import Footer from "./Components/Footer";
 import EditProfile from "./Components/EditProfile";
+import PostJob from "./Components/PostJob";   // ⭐ ADD THIS
+
 export default function App() {
   return (
     <>
       <Navbar />
 
-      <Routes >
+      <Routes>
         {/* PUBLIC ROUTES */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/aboutus" element={<AboutUs/>}/>
+        <Route path="/aboutus" element={<AboutUs />} />
+
         {/* PROTECTED ROUTES */}
         <Route path="/home" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/userApplications" element={<UserApplications />} />
         <Route path="/edit-profile" element={<EditProfile />} />
 
+        {/* ⭐ RECRUITER ONLY PAGE */}
+        <Route path="/post-job" element={<PostJob />} />
+
       </Routes>
-      <Footer/>
+
+      <Footer />
     </>
   );
 }

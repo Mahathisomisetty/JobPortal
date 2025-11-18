@@ -17,6 +17,9 @@ app.use(bodyParser.json());
 // Routes
 app.use("/users", userRouter);
 app.use("/auth", authRouter);   // ✅ ADD THIS for login/register
+var jobRouter = require("./Jobs/jobs.routes");
+app.use("/jobs", jobRouter);
+
 
 app.listen(3500, () =>
   console.log("server running on http://localhost:3500")

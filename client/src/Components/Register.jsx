@@ -8,6 +8,7 @@ export default function Register() {
     fullname: "",
     email: "",
     password: "",
+    role: "user"   // ⭐ default role
   });
 
   const [registerUser, { isLoading, error }] = useRegisterUserMutation();
@@ -26,11 +27,12 @@ export default function Register() {
     if (res.data) {
       setSuccessMsg(res.data.message || "Registered Successfully!");
 
-      setForm({ fullname: "", email: "", password: "" });
+      setForm({ fullname: "", email: "", password: "", role: "user" });
 
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.user.id);
+        localStorage.setItem("role", res.data.user.role);   // ⭐ Save role
       }
 
       setTimeout(() => navigate("/"), 1000);
@@ -38,10 +40,11 @@ export default function Register() {
   }
 
   return (
-    <div >
+    <div>
       <h2>Register</h2>
 
       <form onSubmit={handleSubmit}>
+
         <input
           type="text"
           name="fullname"
@@ -69,10 +72,18 @@ export default function Register() {
           required
         />
 
+        {/* ⭐ Role Dropdown */}
+        <select name="role" value={form.role} onChange={handleChange}>
+          <option value="user">User</option>
+          <option value="recruiter">Recruiter</option>
+          {/* <option value="admin">Admin</option>  OPTIONAL */}
+        </select>
+
         <button type="submit" disabled={isLoading}>
           {isLoading ? "Registering…" : "Register"}
         </button>
-        <p>Already having Account? <a href="/login">Login</a></p>
+
+        <p>Already having an account? <a href="/login">Login</a></p>
       </form>
 
       {successMsg && <p className="success-message">{successMsg}</p>}
