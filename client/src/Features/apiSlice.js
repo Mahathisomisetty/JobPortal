@@ -39,6 +39,10 @@ export const apiSlice = createApi({
     body: body,
   }),
 }),
+getAllJobs: builder.query({
+  query: () => "/jobs/all",
+}),
+
 
 
   }),
@@ -49,5 +53,5 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useGetUserByIdQuery,
-  useUpdateUserMutation,
+  useUpdateUserMutation, useGetAllJobsQuery,
 } = apiSlice;
