@@ -30,10 +30,11 @@ export default function Profile() {
           <strong>{user.fullname}</strong>
         </p>
 
-        <p className="profile-item profile-heading">
-          <i className="bi bi-briefcase-fill icon"></i>&nbsp;
-          {user.profile.headline}
-        </p>
+       <p className="profile-item profile-heading">
+        <i className="bi bi-briefcase-fill icon"></i>&nbsp;
+        {user.profile.headline}
+      </p>
+
 
         <p className="profile-item">
           <strong>Summary:</strong>&nbsp; {user.profile.Summary || "N/A"}
@@ -69,6 +70,10 @@ export default function Profile() {
             <strong>Skills:</strong>&nbsp; {user.profile.skills.join(", ")}
           </p>
         )}
+        <p className="profile-item">
+         <strong>Company:</strong>&nbsp;
+          {user.profile.company}
+        </p>
 
         {user.profile.education?.length > 0 && (
           <p className="profile-item">

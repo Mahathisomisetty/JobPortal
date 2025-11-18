@@ -32,13 +32,14 @@ export const apiSlice = createApi({
     }),
 
     // ✅ UPDATE USER
-    updateUser: builder.mutation({
-      query: ({ id, formData }) => ({
-        url: `/users/updateUser/${id}`,
-        method: "PUT",
-        body: formData,
-      }),
-    }),
+  updateUser: builder.mutation({
+  query: ({ id, ...body }) => ({
+    url: `/users/updateUser/${id}`,
+    method: "PUT",
+    body: body,
+  }),
+}),
+
 
   }),
 });

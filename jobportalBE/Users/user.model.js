@@ -12,7 +12,7 @@ var userSchema = mongoose.Schema({
     },
     profile: {
       headline: { type: String, default: "" },
-      Summary:String,
+      Summary: { type: String, default: "" },
       experience: { type: Number, default: 0 },
       skills: [{ type: String }],
       resume: { type: String }, 

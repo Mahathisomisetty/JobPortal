@@ -96,32 +96,28 @@ router.put("/updateUser/:id", async (req, res) => {
       profile = {}
     } = req.body;
 
-    // Prepare update object
     const updateData = {
       fullname,
       email,
       phonenumber,
-      role:{
-        enum:role.enum
-      },
-      profile: {
-        headline: profile.headline,
-        Summary: profile.Summary,
-        experience: profile.experience,
-        skills: profile.skills,
-        education: profile.education,
-        location: profile.location,
-        resume: profile.resume,
-        company: profile.company,
-        isVerified:profile.isVerified
-      }
+      profile: {}
     };
 
-    // Update user
+    // Only update fields that come from frontend
+    if (profile.headline !== undefined) updateData.profile.headline = profile.headline;
+    if (profile.Summary !== undefined) updateData.profile.Summary = profile.Summary;
+    if (profile.experience !== undefined) updateData.profile.experience = profile.experience;
+    if (profile.skills !== undefined) updateData.profile.skills = profile.skills;
+    if (profile.education !== undefined) updateData.profile.education = profile.education;
+    if (profile.location !== undefined) updateData.profile.location = profile.location;
+    if (profile.resume !== undefined) updateData.profile.resume = profile.resume;
+    if (profile.company !== undefined) updateData.profile.company = profile.company;
+    if (profile.isVerified !== undefined) updateData.profile.isVerified = profile.isVerified;
+
     const updatedUser = await userModel.findByIdAndUpdate(
       userId,
       updateData,
-      { new: true } // return updated document
+      { new: true }
     );
 
     if (!updatedUser) {

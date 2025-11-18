@@ -1,28 +1,88 @@
+/* MAIN CONTAINER (NO BACKGROUND BOX) */
 .edit-container {
-  max-width: 600px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #ddd;
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 10px;
 }
 
 .edit-container h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #333;
 }
 
+/* FORM LABELS */
 .edit-form label {
   font-weight: 600;
-  margin-top: 10px;
+  display: block;
+  margin-bottom: 6px;
+  color: #444;
+  font-size: 14px;
 }
 
+/* CLEAN INPUT FIELDS (FLAT UI) */
 .edit-form input,
-.edit-form textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 15px;
+.edit-form textarea,
+.edit-form select {
+  width: 90%;
+  padding: 12px;
+  border: 1px solid #cfcfcf;
   border-radius: 6px;
-  resize: none;
+  margin-bottom: 20px;
+  font-size: 15px;
+  background: #fafafa;
+  transition: 0.2s ease-in-out;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus,
+.edit-form select:focus {
+  border-color: #4caf50;
+  background: #fff;
+  outline: none;
+}
+
+/* TEXTAREA */
+.edit-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* CHECKBOX */
+.edit-form input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+/* BUTTON */
+.edit-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-form button:hover {
+  background-color: #208838;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 480px) {
+  .edit-container {
+    margin: 20px;
+    padding: 5px;
+  }
+
+  .edit-form input,
+  .edit-form textarea,
+  .edit-form select {
+    font-size: 14px;
+  }
 }
