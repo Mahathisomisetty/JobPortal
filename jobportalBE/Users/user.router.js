@@ -101,6 +101,9 @@ router.put("/updateUser/:id", async (req, res) => {
       fullname,
       email,
       phonenumber,
+      role:{
+        enum:role.enum
+      },
       profile: {
         headline: profile.headline,
         Summary: profile.Summary,
@@ -108,7 +111,9 @@ router.put("/updateUser/:id", async (req, res) => {
         skills: profile.skills,
         education: profile.education,
         location: profile.location,
-        resume: profile.resume
+        resume: profile.resume,
+        company: profile.company,
+        isVerified:profile.isVerified
       }
     };
 
