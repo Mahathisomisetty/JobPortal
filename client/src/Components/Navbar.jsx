@@ -24,7 +24,10 @@ export default function Navbar() {
           <Link className="nav-item" to="/userApplications">Applied Jobs</Link>
 
           {role === "recruiter" && (
+            <>
             <Link className="nav-item" to="/post-job">Post Job</Link>
+            <Link className="nav-item" to="/application-overview">Applications Overview</Link>
+            </>
           )}
 
           <span className="nav-item logout-btn" onClick={handleLogout}>

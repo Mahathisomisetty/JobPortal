@@ -9,6 +9,7 @@ import AboutUs from "./Components/AboutUs";
 import Footer from "./Components/Footer";
 import EditProfile from "./Components/EditProfile";
 import PostJob from "./Components/PostJob";   // ⭐ ADD THIS
+import ApplicationsOverview from "./Components/ApplicationsOverview";
 
 export default function App() {
   return (
@@ -29,7 +30,7 @@ export default function App() {
 
         {/* ⭐ RECRUITER ONLY PAGE */}
         <Route path="/post-job" element={<PostJob />} />
-
+        <Route path="/application-overview" element={<ApplicationsOverview/>}/>
       </Routes>
 
       <Footer />

@@ -21,24 +21,25 @@ export default function PostJob() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
+    // Frontend validation
+    if (!job.title || !job.company || !job.location || !job.description.trim()) {
+      setMsg("All fields are required, including description!");
+      return;
+    }
 
-    console.log("🔥 TOKEN SENT:", token); // DEBUG
+    const token = localStorage.getItem("token");
 
     try {
       const res = await fetch("http://localhost:3500/jobs/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ⭐ FIXED
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(job),
       });
 
-      console.log("🟢 SERVER STATUS:", res.status); // DEBUG
-
       const data = await res.json();
-      console.log("🟢 SERVER RESPONSE:", data); // DEBUG
 
       if (res.status === 401) {
         setMsg("Unauthorized! Login again.");
@@ -56,20 +57,51 @@ export default function PostJob() {
       <h2>Post a Job</h2>
 
       <form onSubmit={handleSubmit}>
-        <input name="title" placeholder="Title" onChange={handleChange} />
-        <input name="company" placeholder="Company" onChange={handleChange} />
-        <input name="location" placeholder="Location" onChange={handleChange} />
-        <input name="salary" placeholder="Salary" onChange={handleChange} />
-        <select name="jobType" onChange={handleChange}>
+        <input
+          name="title"
+          placeholder="Title"
+          value={job.title}
+          onChange={handleChange}
+        />
+
+        <input
+          name="company"
+          placeholder="Company"
+          value={job.company}
+          onChange={handleChange}
+        />
+
+        <input
+          name="location"
+          placeholder="Location"
+          value={job.location}
+          onChange={handleChange}
+        />
+
+        <input
+          name="salary"
+          placeholder="Salary"
+          value={job.salary}
+          onChange={handleChange}
+        />
+
+        <select
+          name="jobType"
+          value={job.jobType}
+          onChange={handleChange}
+        >
           <option>Full-Time</option>
           <option>Part-Time</option>
           <option>Internship</option>
         </select>
+
         <textarea
           name="description"
           placeholder="Description"
+          value={job.description}
           onChange={handleChange}
         />
+
         <button type="submit">Post Job</button>
       </form>
 

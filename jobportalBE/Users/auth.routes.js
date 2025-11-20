@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userModel = require("./user.model");
+const userModel = require("../Users/user.model");
 const jwt = require("jsonwebtoken");
 
 const SECRET_KEY = "MY_SECRET_123";
@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// LOGIN (⛔ your old one was wrong — THIS IS FIXED)
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
     if (user.password !== password)
       return res.status(400).send({ msg: "Invalid email or password" });
 
-    const userId = user._id.toString(); // ⭐ valid ID
+    const userId = user._id.toString();
 
     let token = jwt.sign(
       { id: userId, email: user.email, role: user.role },
@@ -53,7 +53,7 @@ router.post("/login", async (req, res) => {
       msg: "Login successful",
       token,
       user: {
-        id: userId,              // ⭐ ALWAYS RETURN VALID ID
+        id: userId,
         fullname: user.fullname,
         email: user.email,
         role: user.role,
