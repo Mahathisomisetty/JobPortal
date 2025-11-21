@@ -10,7 +10,7 @@ import Footer from "./Components/Footer";
 import EditProfile from "./Components/EditProfile";
 import PostJob from "./Components/PostJob";   // ⭐ ADD THIS
 import ApplicationsOverview from "./Components/ApplicationsOverview";
-
+import ViewDetails from "./Components/ViewDetails";
 export default function App() {
   return (
     <>
@@ -27,7 +27,7 @@ export default function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/userApplications" element={<UserApplications />} />
         <Route path="/edit-profile" element={<EditProfile />} />
-
+        <Route path="/job/:id" element={<ViewDetails />} />
         {/* ⭐ RECRUITER ONLY PAGE */}
         <Route path="/post-job" element={<PostJob />} />
         <Route path="/application-overview" element={<ApplicationsOverview/>}/>

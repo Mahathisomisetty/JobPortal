@@ -1,8 +1,10 @@
 import React from "react";
 import { useGetAllJobsQuery } from "../Features/apiSlice";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
 export default function Home() {
+  const navigate = useNavigate();
   const { data: jobs, isLoading } = useGetAllJobsQuery();
 
   if (isLoading) return <h2>Loading jobs...</h2>;
@@ -20,7 +22,10 @@ export default function Home() {
             <p><strong>Salary:</strong> {job.salary || "Not mentioned"}</p>
             <p>{job.description.substring(0, 100)}...</p>
 
-            <button className="apply-btn">
+            <button
+              className="apply-btn"
+              onClick={() => navigate(`/job/${job._id}`)}
+            >
               View Details
             </button>
           </div>
