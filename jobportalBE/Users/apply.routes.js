@@ -4,13 +4,13 @@ const path = require("path");
 
 const router = express.Router();
 
+// ======================================================
+// APPLY FOR A JOB → STORE IN AppliedJobs.txt
+// ======================================================
 router.post("/apply", (req, res) => {
-//   console.log("REQ BODY RECEIVED ====>", req.body); // Debugging line
+  const { jobId, jobTitle, applicantName, applicantEmail, applicantId } = req.body;
 
-  // ⛔ FIX: use req.body, NOT user
-  const { jobId, jobTitle, applicantName, applicantEmail } = req.body;
-
-  if (!jobId || !jobTitle || !applicantName || !applicantEmail) {
+  if (!jobId || !jobTitle || !applicantName || !applicantId) {
     return res.status(400).json({ msg: "Missing required fields" });
   }
 
@@ -18,30 +18,67 @@ router.post("/apply", (req, res) => {
   const filePath = path.join(folderPath, "AppliedJobs.txt");
 
   try {
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath);
-    }
+    if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath);
 
-    const entry = `
-===========================
-Applied Job Details
----------------------------
-JOB TITLE: ${jobTitle}
-JOB ID: ${jobId}
-APPLICANT NAME: ${applicantName}
-APPLICANT EMAIL: ${applicantEmail}
-APPLIED ON: ${new Date().toLocaleString()}
-===========================
-
-`;
+    // Format: applicantId||jobId||jobTitle||name||email||date
+    const entry =
+      `${applicantId}||${jobId}||${jobTitle}||${applicantName}||${applicantEmail}||${new Date().toLocaleString()}\n`;
 
     fs.appendFileSync(filePath, entry);
 
     res.json({ msg: "Applied Successfully!" });
-  } catch (error) {
-    console.log(error);
+
+  } catch (err) {
+    console.log(err);
     res.status(500).json({ msg: "Error writing to file" });
   }
+});
+
+// ======================================================
+// GET ALL APPLICATIONS FOR ONE USER (Read from TXT)
+// ======================================================
+router.get("/user/:id", (req, res) => {
+  const userId = req.params.id;
+
+  const filePath = path.join(__dirname, "..", "AppliedJobs", "AppliedJobs.txt");
+
+  if (!fs.existsSync(filePath)) return res.json([]);
+
+  const content = fs.readFileSync(filePath, "utf-8").trim();
+
+  if (!content) return res.json([]);
+
+  const lines = content.split("\n");
+
+  const apps = lines
+    .map((line) => {
+      const parts = line.split("||");
+      if (parts.length < 6) return null;
+
+      const [
+        applicantId,
+        jobId,
+        jobTitle,
+        applicantName,
+        applicantEmail,
+        appliedOn
+      ] = parts;
+
+      return {
+        applicantId,
+        jobId,
+        jobTitle,
+        applicantName,
+        applicantEmail,
+        appliedOn
+      };
+    })
+    .filter(Boolean);
+
+  // ✅ BACKEND FILTER: only this user's apps
+  const userApps = apps.filter((a) => a.applicantId === userId);
+
+  res.json(userApps);
 });
 
 module.exports = router;
