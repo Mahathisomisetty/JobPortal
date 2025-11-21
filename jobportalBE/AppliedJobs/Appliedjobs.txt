@@ -1,0 +1,33 @@
+
+===========================
+Applied Job Details
+---------------------------
+JOB TITLE: tester
+JOB ID: 691f02ba69ed6f87199326b4
+APPLICANT NAME: admin
+APPLICANT EMAIL: N/A
+APPLIED ON: 21/11/2025, 12:17:25 pm
+===========================
+
+
+===========================
+Applied Job Details
+---------------------------
+JOB TITLE: tester
+JOB ID: 691f02ba69ed6f87199326b4
+APPLICANT NAME: admin
+APPLICANT EMAIL: N/A
+APPLIED ON: 21/11/2025, 12:19:07 pm
+===========================
+
+
+===========================
+Applied Job Details
+---------------------------
+JOB TITLE: Java Developer
+JOB ID: 692001f412e4b1cae250e788
+APPLICANT NAME: admin
+APPLICANT EMAIL: N/A
+APPLIED ON: 21/11/2025, 12:19:54 pm
+===========================
+

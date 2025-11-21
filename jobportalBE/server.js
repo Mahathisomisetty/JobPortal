@@ -1,27 +1,31 @@
 const express = require("express");
 const cors = require("cors");
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 
-var app = express();
+const app = express();
 
+// ⭐ Correct Order of Middleware
+app.use(cors());
+app.use(express.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// MongoDB connection
 var mongooseConnection = require("./mongodbConnection");
 
 // Routers
 var userRouter = require("./Users/user.router");
-var authRouter = require("./Users/auth.routes");   // ✅ ADD THIS
-
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+var authRouter = require("./Users/auth.routes");
+const jobRoutes = require("./Jobs/jobs.routes");
+const applyRoutes = require("./Users/apply.routes");
 
 // Routes
 app.use("/users", userRouter);
-app.use("/auth", authRouter);   // ✅ ADD THIS for login/register
-const jobRoutes = require("./Jobs/jobs.routes");
+app.use("/auth", authRouter);
 app.use("/jobs", jobRoutes);
+app.use("/applyjob", applyRoutes);
 
-
-
-app.listen(3500, () =>
-  console.log("server running on http://localhost:3500")
-);
+// Server
+app.listen(3500, () => {
+  console.log("server running on http://localhost:3500");
+});
