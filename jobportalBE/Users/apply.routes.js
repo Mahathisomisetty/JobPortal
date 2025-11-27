@@ -45,5 +45,21 @@ router.get("/user/:userId", auth, async (req, res) => {
     res.status(500).json({ msg: "Error fetching applications" });
   }
 });
+// WITHDRAW APPLICATION
+router.delete("/withdraw/:appId", auth, async (req, res) => {
+  try {
+    const { appId } = req.params;
+
+    const deleted = await Application.findByIdAndDelete(appId);
+
+    if (!deleted) return res.status(404).json({ msg: "Application not found" });
+
+    res.json({ msg: "Application withdrawn successfully!" });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Error withdrawing application" });
+  }
+});
 
 module.exports = router;

@@ -1,5 +1,3 @@
-// File: src/Pages/Login.jsx
-
 import React, { useState } from "react";
 import { useLoginUserMutation } from "../Features/apiSlice";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +14,21 @@ export default function Login() {
     const res = await loginUser(form);
 
     if (res.data?.token) {
-      // ⭐ Save FULL user object
+      // Save full user data
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      // ⭐ Save token
+      // Save token
       localStorage.setItem("token", res.data.token);
 
-      navigate("/home");
+      // Save userId
+      localStorage.setItem("userId", res.data.user.id);
+
+      // ⭐ ROLE-BASED REDIRECTION
+      if (res.data.user.role === "recruiter") {
+        navigate("/recruiter-home");   // Recruiter Dashboard
+      } else {
+        navigate("/home");             // User Dashboard
+      }
     } else {
       alert("Invalid login");
     }

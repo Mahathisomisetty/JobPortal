@@ -2,26 +2,33 @@ import React from "react";
 import { useGetUserApplicationsQuery } from "../Features/apiSlice";
 
 export default function UserApplications() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const userId = localStorage.getItem("userId");
 
-  // console.log("🔥 LOGGED IN USER:", user);
+  const {
+    data: apps = [],
+    isLoading,
+    isError,
+    refetch
+  } = useGetUserApplicationsQuery(userId, { skip: !userId });
 
-  const userId = user?.id || user?._id;
+  if (isLoading) return <h2>Loading applications...</h2>;
+  if (isError) return <h2>Error loading applications</h2>;
 
-  // console.log("🔥 FINAL USER ID:", userId);
-
-  const { data: apps = [], refetch } =
-    useGetUserApplicationsQuery(userId, {
-      skip: !userId,
-      refetchOnMountOrArgChange: true,  //  auto-refresh on load
+  // ⭐ Withdraw Function
+  async function handleWithdraw(appId) {
+    const res = await fetch(`http://localhost:3500/applyjob/withdraw/${appId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
 
-  //  Auto-refresh when "applicationsUpdated" event is triggered
-  React.useEffect(() => {
-    const handler = () => refetch();
-    window.addEventListener("applicationsUpdated", handler);
-    return () => window.removeEventListener("applicationsUpdated", handler);
-  }, [refetch]);
+    const data = await res.json();
+    alert(data.msg);
+
+    // ⭐ Refresh UI
+    refetch();
+  }
 
   return (
     <div>
@@ -34,6 +41,15 @@ export default function UserApplications() {
           <h3>{app.jobId?.title}</h3>
           <p>{app.jobId?.company}</p>
           <p>Applied on: {new Date(app.appliedAt).toLocaleDateString()}</p>
+
+          {/* ⭐ Withdraw Button */}
+          <button
+            onClick={() => handleWithdraw(app._id)}
+            className="withdraw-btn"
+            style={{ marginTop: "10px", background: "red", color: "white", padding: "8px", borderRadius: "5px" }}
+          >
+            Withdraw Application
+          </button>
         </div>
       ))}
     </div>

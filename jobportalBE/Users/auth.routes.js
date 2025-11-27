@@ -31,6 +31,7 @@ router.post("/register", async (req, res) => {
 });
 
 // LOGIN
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -64,5 +65,4 @@ router.post("/login", async (req, res) => {
     res.status(500).send({ msg: "Error during login" });
   }
 });
-
 module.exports = router;

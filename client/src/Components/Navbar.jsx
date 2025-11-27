@@ -2,14 +2,16 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
-  const token = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
   const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+  const role = user?.role;
 
   function handleLogout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     localStorage.removeItem("userId");
-    localStorage.removeItem("role");
     navigate("/login");
   }
 
@@ -21,12 +23,19 @@ export default function Navbar() {
 
           <Link className="nav-item" to="/home">Home</Link>
           <Link className="nav-item" to="/profile">Profile</Link>
-          <Link className="nav-item" to="/userApplications">Applied Jobs</Link>
 
+          {/* ⭐ SHOW APPLIED JOBS FOR BOTH USER & RECRUITER */}
+          <Link className="nav-item" to="/userApplications">
+            Applied Jobs
+          </Link>
+
+          {/* ⭐ RECRUITER ONLY */} 
           {role === "recruiter" && (
             <>
-            <Link className="nav-item" to="/post-job">Post Job</Link>
-            <Link className="nav-item" to="/application-overview">Applications Overview</Link>
+              <Link className="nav-item" to="/post-job">Post Job</Link>
+              <Link className="nav-item" to="/application-overview">
+                Applications Overview
+              </Link>
             </>
           )}
 
