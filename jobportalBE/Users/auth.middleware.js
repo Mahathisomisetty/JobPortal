@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
+const User = require("./user.model");
 const SECRET_KEY = "MY_SECRET_123";
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   const authHeader = req.headers.authorization;
 
   if (!authHeader)
@@ -14,9 +15,24 @@ module.exports = function (req, res, next) {
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
-    req.user = decoded;
+
+    // ⭐ FIX: support both "id" and "_id"
+    const userId = decoded._id || decoded.id;
+
+    if (!userId) {
+      return res.status(401).json({ msg: "Invalid token payload" });
+    }
+
+    const user = await User.findById(userId).select("_id fullname email role");
+
+    if (!user) {
+      return res.status(401).json({ msg: "User not found" });
+    }
+
+    req.user = user;  // Now req.user._id is always valid
     next();
   } catch (err) {
+    console.error("AUTH ERROR:", err);
     res.status(401).json({ msg: "Invalid or expired token" });
   }
 };

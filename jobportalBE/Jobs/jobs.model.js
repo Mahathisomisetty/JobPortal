@@ -1,20 +1,17 @@
+// File: backend/Jobs/job.model.js
+
 const mongoose = require("mongoose");
 
 const jobSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  company: { type: String, required: true },
-  location: { type: String, required: true },
-  salary: { type: String },
-  jobType: { type: String, enum: ["Full-Time", "Part-Time", "Internship"], default: "Full-Time" },
-  description: { type: String, required: true },
-
-  postedBy: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: "user", 
-    required: true 
-  }, // recruiter ID
-
-  createdAt: { type: Date, default: Date.now }
+  title: String,
+  company: String,
+  location: String,
+  salary: String,
+  description: String,
+  postedBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
-module.exports = mongoose.model("job", jobSchema);
+module.exports = mongoose.model("Job", jobSchema);

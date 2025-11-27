@@ -8,28 +8,39 @@ export default function ViewDetails() {
   const { data: job, isLoading, isError } = useGetJobByIdQuery(id);
 
   const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
 
-  // 🔥 Prevent crash when job is undefined
   if (isLoading) return <h2>Loading job details...</h2>;
-  if (isError) return <h2>Something went wrong while fetching job details.</h2>;
+  if (isError) return <h2>Error fetching job details.</h2>;
   if (!job) return <h2>No job found</h2>;
 
   const handleApply = async () => {
-    if (!user) return navigate("/login");
+    if (!user || !token) {
+      alert("Please login first");
+      return navigate("/login");
+    }
 
     const res = await fetch("http://localhost:3500/applyjob/apply", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         jobId: job._id,
-        jobTitle: job.title,
-        applicantName: user.username,
-        applicantEmail: user.email || "N/A",
-        applicantId: user._id
-      })
+      }),
     });
 
-    alert("Application Submitted");
+    const data = await res.json();
+
+    if (data.msg === "Applied Successfully!") {
+      // ⭐ TRIGGER auto refresh in UserApplications.jsx
+      window.dispatchEvent(new Event("applicationsUpdated"));
+
+      alert("You applied successfully!");
+    } else {
+      alert(data.msg);
+    }
   };
 
   return (
@@ -38,7 +49,7 @@ export default function ViewDetails() {
 
       <p><strong>Company:</strong> {job.company}</p>
       <p><strong>Location:</strong> {job.location}</p>
-      <p><strong>Salary:</strong> {job.salary || "Not mentioned"}</p>
+      <p><strong>Salary:</strong> {job.salary}</p>
       <p><strong>Description:</strong> {job.description}</p>
 
       <button onClick={handleApply} className="apply-btn">
