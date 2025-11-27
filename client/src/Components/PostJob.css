@@ -1,0 +1,180 @@
+/* ================================
+   MAIN CONTAINER
+================================ */
+.postjob-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  min-height: 100vh;
+  background: #f4f6fc;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ================================
+   LEFT PANEL (JOB LIST)
+================================ */
+.left-panel {
+  width: 35%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.left-panel h2 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Job Cards */
+.job-card {
+  background: #fafafa;
+  border: 1px solid #e1e1e1;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.job-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.job-card h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.job-card p {
+  margin: 4px 0;
+  color: #666;
+}
+
+/* Buttons inside card */
+.edit-btn, .delete-btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  margin-right: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+.edit-btn {
+  background: #4c8bf5;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #2768e5;
+}
+
+.delete-btn {
+  background: #ff4d4d;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #e60000;
+}
+
+/* ================================
+   RIGHT PANEL (FORM)
+================================ */
+.right-panel {
+  width: 65%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.right-panel h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 600;
+}
+
+/* FORM */
+.job-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.job-form input,
+.job-form select,
+.job-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #fafafa;
+  transition: 0.25s;
+}
+
+.job-form input:focus,
+.job-form select:focus,
+.job-form textarea:focus {
+  border-color: #4c8bf5;
+  box-shadow: 0 0 5px rgba(76, 139, 245, 0.3);
+  background: #fff;
+}
+
+/* TEXTAREA */
+.job-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* SUBMIT BUTTON */
+.submit-btn {
+  background: #4c8bf5;
+  padding: 12px 18px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.submit-btn:hover {
+  background: #2768e5;
+}
+
+/* Message */
+.msg {
+  margin-top: 15px;
+  color: #2768e5;
+  font-weight: 600;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+@media (max-width: 900px) {
+  .postjob-container {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
+  }
+}
+.highlight-form {
+  animation: highlightPulse 0.8s ease-in-out;
+}
+
+@keyframes highlightPulse {
+  0% { background-color: #fff7c6; }
+  100% { background-color: transparent; }
+}

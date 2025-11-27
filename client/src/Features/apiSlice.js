@@ -16,6 +16,8 @@ export const apiSlice = createApi({
     },
   }),
 
+  tagTypes: ["Jobs"],
+
   endpoints: (builder) => ({
 
     // REGISTER USER
@@ -27,7 +29,7 @@ export const apiSlice = createApi({
       }),
     }),
 
-    // LOGIN USER
+    // LOGIN
     loginUser: builder.mutation({
       query: (data) => ({
         url: "/auth/login",
@@ -36,7 +38,7 @@ export const apiSlice = createApi({
       }),
     }),
 
-    // GET USER BY ID
+    // GET USER
     getUserById: builder.query({
       query: (id) => `/users/getUser/${id}`,
     }),
@@ -50,17 +52,55 @@ export const apiSlice = createApi({
       }),
     }),
 
+    // ========= ⭐ JOB CRUD API ENDPOINTS ⭐ =========
+
+    // CREATE JOB
+    createJob: builder.mutation({
+      query: (body) => ({
+        url: "/jobs/create",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Jobs"],
+    }),
+
+    // GET JOBS POSTED BY RECRUITER
+    getRecruiterJobs: builder.query({
+      query: (recruiterId) => `/jobs/recruiter/${recruiterId}`,
+      providesTags: ["Jobs"],
+    }),
+
+    // UPDATE JOB
+    updateJob: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/jobs/update/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Jobs"],
+    }),
+
+    // DELETE JOB
+    deleteJob: builder.mutation({
+      query: ({ id }) => ({
+        url: `/jobs/delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Jobs"],
+    }),
+
     // GET ALL JOBS
     getAllJobs: builder.query({
       query: () => "/jobs/all",
+      providesTags: ["Jobs"],
     }),
 
-    // GET SINGLE JOB BY ID
+    // GET SINGLE JOB
     getJobById: builder.query({
       query: (id) => `/jobs/getJob/${id}`,
     }),
 
-    // ⭐ GET APPLICATIONS OF LOGGED-IN USER
+    // GET APPLICATIONS OF LOGGED USER
     getUserApplications: builder.query({
       query: (userId) => `/applyjob/user/${userId}`,
     }),
@@ -68,13 +108,18 @@ export const apiSlice = createApi({
   }),
 });
 
-// Export hooks
+// Export Hooks
 export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useGetUserByIdQuery,
-  useGetJobByIdQuery,
   useUpdateUserMutation,
+
+  useCreateJobMutation,
+  useGetRecruiterJobsQuery,
+  useUpdateJobMutation,
+  useDeleteJobMutation,
   useGetAllJobsQuery,
+  useGetJobByIdQuery,
   useGetUserApplicationsQuery,
 } = apiSlice;
