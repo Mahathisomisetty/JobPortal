@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useGetUserByIdQuery } from "../Features/apiSlice";
 import "./profile.css";
+import React from "react";
 
 export default function Profile() {
   const navigate = useNavigate();
@@ -13,9 +14,15 @@ export default function Profile() {
     return null;
   }
 
-  const { data: user, isLoading, error } = useGetUserByIdQuery(userId, {
+  // ⭐ ADDED: refetch for auto-refresh
+  const { data: user, isLoading, error, refetch } = useGetUserByIdQuery(userId, {
     skip: !userId,
   });
+
+  // ⭐ ADDED: auto-refresh when page opens
+  React.useEffect(() => {
+    if (userId) refetch();
+  }, [userId, refetch]);
 
   if (isLoading) return <h2>Loading user...</h2>;
   if (error || !user) return <h2>Unable to load user</h2>;
