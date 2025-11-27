@@ -1,84 +1,42 @@
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
-
 const router = express.Router();
 
+const Application = require("../Applications/application.model");  // ✅ FIXED
+const Job = require("../Jobs/jobs.model");
+const auth = require("../Users/auth.middleware"); // JWT middleware
+
 // ======================================================
-// APPLY FOR A JOB → STORE IN AppliedJobs.txt
+// APPLY FOR A JOB (User applies)
 // ======================================================
-router.post("/apply", (req, res) => {
-  const { jobId, jobTitle, applicantName, applicantEmail, applicantId } = req.body;
-
-  if (!jobId || !jobTitle || !applicantName || !applicantId) {
-    return res.status(400).json({ msg: "Missing required fields" });
-  }
-
-  const folderPath = path.join(__dirname, "..", "AppliedJobs");
-  const filePath = path.join(folderPath, "AppliedJobs.txt");
-
+router.post("/apply", auth, async (req, res) => {
   try {
-    if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath);
+    const { jobId } = req.body;
+    const userId = req.user._id;
 
-    // Format: applicantId||jobId||jobTitle||name||email||date
-    const entry =
-      `${applicantId}||${jobId}||${jobTitle}||${applicantName}||${applicantEmail}||${new Date().toLocaleString()}\n`;
+    const job = await Job.findById(jobId);
+    if (!job) return res.status(404).json({ msg: "Job not found" });
 
-    fs.appendFileSync(filePath, entry);
+    // Check if already applied
+    const alreadyApplied = await Application.findOne({ jobId, appliedBy: userId });
 
-    res.json({ msg: "Applied Successfully!" });
+    if (alreadyApplied) {
+      return res.json({ msg: "You already applied for this job" });
+    }
+
+    const application = await Application.create({
+      jobId,
+      appliedBy: userId,
+    });
+
+    res.json({
+      msg: "Applied Successfully!",
+      application,
+    });
 
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: "Error writing to file" });
+    console.error(err);
+    res.status(500).json({ msg: "Error applying for job" });
   }
-});
-
-// ======================================================
-// GET ALL APPLICATIONS FOR ONE USER (Read from TXT)
-// ======================================================
-router.get("/user/:id", (req, res) => {
-  const userId = req.params.id;
-
-  const filePath = path.join(__dirname, "..", "AppliedJobs", "AppliedJobs.txt");
-
-  if (!fs.existsSync(filePath)) return res.json([]);
-
-  const content = fs.readFileSync(filePath, "utf-8").trim();
-
-  if (!content) return res.json([]);
-
-  const lines = content.split("\n");
-
-  const apps = lines
-    .map((line) => {
-      const parts = line.split("||");
-      if (parts.length < 6) return null;
-
-      const [
-        applicantId,
-        jobId,
-        jobTitle,
-        applicantName,
-        applicantEmail,
-        appliedOn
-      ] = parts;
-
-      return {
-        applicantId,
-        jobId,
-        jobTitle,
-        applicantName,
-        applicantEmail,
-        appliedOn
-      };
-    })
-    .filter(Boolean);
-
-  // ✅ BACKEND FILTER: only this user's apps
-  const userApps = apps.filter((a) => a.applicantId === userId);
-
-  res.json(userApps);
 });
 
 module.exports = router;
