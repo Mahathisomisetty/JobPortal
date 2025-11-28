@@ -38,7 +38,7 @@ export const apiSlice = createApi({
       }),
     }),
 
-    // GET USER
+    // GET USER BY ID
     getUserById: builder.query({
       query: (id) => `/users/getUser/${id}`,
     }),
@@ -52,8 +52,6 @@ export const apiSlice = createApi({
       }),
     }),
 
-    // ========= ⭐ JOB CRUD API ENDPOINTS ⭐ =========
-
     // CREATE JOB
     createJob: builder.mutation({
       query: (body) => ({
@@ -64,7 +62,7 @@ export const apiSlice = createApi({
       invalidatesTags: ["Jobs"],
     }),
 
-    // GET JOBS POSTED BY RECRUITER
+    // GET JOBS CREATED BY RECRUITER
     getRecruiterJobs: builder.query({
       query: (recruiterId) => `/jobs/recruiter/${recruiterId}`,
       providesTags: ["Jobs"],
@@ -104,8 +102,8 @@ export const apiSlice = createApi({
     getUserApplications: builder.query({
       query: (userId) => `/applyjob/user/${userId}`,
     }),
-    
-    //upload pdf file(resume)
+
+    // ⭐ UPLOAD PDF FILE
     uploadPDF: builder.mutation({
       query: (file) => {
         const formData = new FormData();
@@ -119,14 +117,27 @@ export const apiSlice = createApi({
       },
     }),
 
+    // ⭐ GET APPLICATIONS FOR RECRUITER (APPLICANTS LIST)
+    getRecruiterApplications: builder.query({
+      query: (recruiterId) => `/applyjob/recruiter/${recruiterId}`,
+    }),
+
   }),
 });
 
 // Export Hooks
 export const {
-  useRegisterUserMutation, useLoginUserMutation,useGetUserByIdQuery,
-  useUpdateUserMutation,useCreateJobMutation,
-  useGetRecruiterJobsQuery,useUpdateJobMutation,useDeleteJobMutation,
-  useGetAllJobsQuery,useGetJobByIdQuery,useGetUserApplicationsQuery,
-   useUploadPDFMutation,
+  useRegisterUserMutation,
+  useLoginUserMutation,
+  useGetUserByIdQuery,
+  useUpdateUserMutation,
+  useCreateJobMutation,
+  useGetRecruiterJobsQuery,
+  useUpdateJobMutation,
+  useDeleteJobMutation,
+  useGetAllJobsQuery,
+  useGetJobByIdQuery,
+  useGetUserApplicationsQuery,
+  useUploadPDFMutation,
+  useGetRecruiterApplicationsQuery,
 } = apiSlice;

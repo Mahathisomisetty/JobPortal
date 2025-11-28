@@ -1,25 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useGetRecruiterApplicationsQuery } from "../Features/apiSlice";
 
 export default function ApplicationsOverview() {
-  const user = JSON.parse(localStorage.getItem("user")); // recruiter
-  const [apps, setApps] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user")); // Recruiter
 
-  useEffect(() => {
-    fetch(`http://localhost:3500/applyjob/recruiter/${user._id}`)
-      .then(res => res.json())
-      .then(data => setApps(data));
-  }, []);
+  // ⭐ FIX: ALWAYS get correct recruiter ID (safe, reliable)
+  const recruiterId =
+    user?._id ||
+    user?.id ||
+    user?._doc?._id ||
+    localStorage.getItem("userId");
+
+  console.log("📌 Recruiter ID Used:", recruiterId); // DEBUG
+
+  const { data: apps = [], isLoading, isError } =
+    useGetRecruiterApplicationsQuery(recruiterId, {
+      skip: !recruiterId,
+    });
+
+  if (isLoading) return <h2>Loading applications...</h2>;
+  if (isError) return <h2>Failed to load applications</h2>;
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Applications Overview</h1>
 
+      {apps.length === 0 && <p>No applications found.</p>}
+
       {apps.map((app, idx) => (
-        <div key={idx}>
+        <div
+          key={idx}
+          style={{
+            background: "#fff",
+            padding: "18px",
+            borderRadius: "10px",
+            marginBottom: "20px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+          }}
+        >
           <h3>{app.jobTitle}</h3>
-          <p>Applicant: {app.applicantName}</p>
-          <p>Email: {app.applicantEmail}</p>
-          <p>Applied On: {app.appliedOn}</p>
+
+          <p>
+            <strong>Applicant:</strong> {app.applicantName}
+          </p>
+
+          <p>
+            <strong>Email:</strong> {app.applicantEmail}
+          </p>
+          {/* phonenumber */}
+           <p>
+            <strong>Phn no:</strong> {app.applicantPhone}
+          </p>
+
+
+          <p>
+            <strong>Applied On:</strong>{" "}
+            {new Date(app.appliedOn).toLocaleDateString()}
+          </p>
+
+          {/* ⭐ Resume Link */}
+          <p>
+            <strong>Resume:</strong>{" "}
+            {app.resume ? (
+              <a
+                href={`http://localhost:3500${app.resume}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "blue", textDecoration: "underline" }}
+              >
+                View Resume (PDF)
+              </a>
+            ) : (
+              "Not uploaded"
+            )}
+          </p>
         </div>
       ))}
     </div>
