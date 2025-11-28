@@ -61,13 +61,13 @@ router.get("/recruiter/:recruiterId", auth, async (req, res) => {
   try {
     const { recruiterId } = req.params;
 
-    console.log("🔥 Recruiter ID from FE:", recruiterId);
+    // console.log(" Recruiter ID from FE:", recruiterId);
 
     const apps = await Application.find({ recruiterId })
       .populate("jobId", "title company")
       .populate("appliedBy", "fullname email phonenumber profile"); // NOW SAFE
 
-    console.log("🔥 Applications Found:", apps);
+    // console.log(" Applications Found:", apps);
 
     const formatted = apps.map((app) => ({
       jobTitle: app.jobId?.title,

@@ -11,7 +11,7 @@ export default function ApplicationsOverview() {
     user?._doc?._id ||
     localStorage.getItem("userId");
 
-  console.log("📌 Recruiter ID Used:", recruiterId); // DEBUG
+  // console.log("📌 Recruiter ID Used:", recruiterId); // DEBUG
 
   const { data: apps = [], isLoading, isError } =
     useGetRecruiterApplicationsQuery(recruiterId, {
