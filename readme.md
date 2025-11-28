@@ -13,7 +13,6 @@
 - Node.js
 - Express.js
 - MongoDB + Mongoose
-- Multer (file uploads)
 - bcrypt
 - jsonwebtoken
 - cors
