@@ -29,7 +29,6 @@ export default function EditProfile() {
     isVerified: false,
   });
 
-  // Prefill user data
   useEffect(() => {
     if (user) {
       setForm({
@@ -48,16 +47,16 @@ export default function EditProfile() {
     }
   }, [user]);
 
-  // Input changes
+  // INPUT CHANGE
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm({
-      ...form,
+    setForm((prev) => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
-    });
+    }));
   };
 
-  // File upload
+  // FILE UPLOAD
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChoose = (e) => {
@@ -65,33 +64,25 @@ export default function EditProfile() {
     if (!file) return;
 
     if (file.type !== "application/pdf") {
-      alert("Only PDF files allowed");
+      alert("Only PDF allowed!");
       return;
     }
-
     setSelectedFile(file);
   };
 
-  // Upload handler
   const handlePDFUpload = async () => {
-    if (!selectedFile) return alert("Please choose a PDF file");
+    if (!selectedFile) return alert("Choose a PDF first");
 
     try {
       const res = await uploadPDF(selectedFile).unwrap();
-
-      setForm((prev) => ({
-        ...prev,
-        resume: res.filePath, // auto save uploaded path
-      }));
-
-      alert("Resume uploaded successfully!");
+      setForm((prev) => ({ ...prev, resume: res.filePath }));
+      alert("Resume uploaded!");
     } catch (err) {
-      console.log(err);
       alert("Upload failed");
     }
   };
 
-  // Submit update
+  // SUBMIT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -105,145 +96,120 @@ export default function EditProfile() {
         experience: Number(form.experience),
         skills: form.skills.split(",").map((s) => s.trim()),
         education: form.education.split(",").map((e) => e.trim()),
-        resume: form.resume, // uploaded resume path
+        resume: form.resume,
         company: form.company,
         isVerified: form.isVerified,
       },
     };
 
     await updateUser({ id: userId, ...payload });
-
-    alert("Profile Updated Successfully!");
+    alert("Profile Updated!");
     navigate("/profile");
   };
 
   return (
     <div className="edit-container">
-      <h2>Edit Profile</h2>
+      <h2 className="edit-title">Edit Profile</h2>
 
       <form onSubmit={handleSubmit} className="edit-form">
-        <label>Full Name</label>
-        <input
-          type="text"
-          name="fullname"
-          value={form.fullname}
-          onChange={handleChange}
-        />
 
-        <label>Headline</label>
-        <select
-          name="headline"
-          value={form.headline}
-          onChange={handleChange}
-          className="form-select"
-        >
-          <option value="">Select your role</option>
-          <option value="Developer">Developer</option>
-          <option value="Student">Student</option>
-          <option value="Recruiter">Recruiter</option>
-          <option value="Designer">Designer</option>
-          <option value="Manager">Manager</option>
-          <option value="Intern">Intern</option>
-        </select>
+        {/* FULL NAME */}
+        <div className="form-group">
+          <label>Full Name</label>
+          <input name="fullname" value={form.fullname} onChange={handleChange} />
+        </div>
 
-        <label>Summary</label>
-        <textarea
-          name="Summary"
-          value={form.Summary}
-          onChange={handleChange}
-        ></textarea>
+        {/* HEADLINE + PHONE */}
+        <div className="form-row">
+          <div className="form-group">
+            <label>Headline</label>
+            <select name="headline" value={form.headline} onChange={handleChange}>
+              <option value="">Select your role</option>
+              <option value="Developer">Developer</option>
+              <option value="Student">Student</option>
+              <option value="Recruiter">Recruiter</option>
+              <option value="Designer">Designer</option>
+              <option value="Manager">Manager</option>
+              <option value="Intern">Intern</option>
+            </select>
+          </div>
 
-        <label>Phone Number</label>
-        <input
-          type="text"
-          name="phonenumber"
-          value={form.phonenumber}
-          onChange={handleChange}
-        />
+          <div className="form-group">
+            <label>Phone Number</label>
+            <input name="phonenumber" value={form.phonenumber} onChange={handleChange} />
+          </div>
+        </div>
 
-        <label>Location</label>
-        <input
-          type="text"
-          name="location"
-          value={form.location}
-          onChange={handleChange}
-        />
+        {/* LOCATION + EXPERIENCE */}
+        <div className="form-row">
+          <div className="form-group">
+            <label>Location</label>
+            <input name="location" value={form.location} onChange={handleChange} />
+          </div>
 
-        <label>Experience (years)</label>
-        <input
-          type="number"
-          name="experience"
-          value={form.experience}
-          onChange={handleChange}
-        />
+          <div className="form-group">
+            <label>Experience (years)</label>
+            <input name="experience" value={form.experience} onChange={handleChange} />
+          </div>
+        </div>
 
-        <label>Skills (comma separated)</label>
-        <input
-          type="text"
-          name="skills"
-          value={form.skills}
-          onChange={handleChange}
-        />
+        {/* SUMMARY FULL WIDTH */}
+        <div className="form-group">
+          <label>Summary</label>
+          <textarea name="Summary" value={form.Summary} onChange={handleChange}></textarea>
+        </div>
 
-        <label>Education (comma separated)</label>
-        <input
-          type="text"
-          name="education"
-          value={form.education}
-          onChange={handleChange}
-        />
+        {/* SKILLS + EDUCATION */}
+        <div className="form-row">
+          <div className="form-group">
+            <label>Skills</label>
+            <input name="skills" value={form.skills} onChange={handleChange} />
+          </div>
 
-        <label>Company</label>
-        <input
-          type="text"
-          name="company"
-          value={form.company}
-          onChange={handleChange}
-        />
+          <div className="form-group">
+            <label>Education</label>
+            <input name="education" value={form.education} onChange={handleChange} />
+          </div>
+        </div>
 
-        <label>Verified Recruiter?</label>
-        <input
-          type="checkbox"
-          name="isVerified"
-          checked={form.isVerified}
-          onChange={handleChange}
-        />
+        {/* COMPANY + VERIFIED */}
+        <div className="form-row">
+          <div className="form-group">
+            <label>Company</label>
+            <input name="company" value={form.company} onChange={handleChange} />
+          </div>
 
-        {/* ⭐ FILE UPLOAD ONLY ⭐ */}
-        <label>Upload Resume (PDF)</label>
-        <input
-          type="file"
-          accept="application/pdf"
-          onChange={handleFileChoose}
-          className="form-control"
-        />
+          <div className="form-checkbox">
+            <label>Verified Recruiter?</label>
+            <input
+              type="checkbox"
+              name="isVerified"
+              checked={form.isVerified}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
 
-        <button
-          type="button"
-          onClick={handlePDFUpload}
-          className="btn btn-warning mt-2"
-          disabled={uploading}
-        >
-          {uploading ? "Uploading..." : "Upload PDF"}
-        </button>
+        {/* FILE UPLOAD */}
+        <div className="form-group">
+          <label>Upload Resume (PDF)</label>
 
-        {/* Show Uploaded File */}
-        {form.resume && (
-          <p className="mt-2">
-            Uploaded File:{" "}
-            <a
-              href={`http://localhost:3500${form.resume}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              View Resume (PDF)
-            </a>
-          </p>
-        )}
+          <input type="file" accept="application/pdf" onChange={handleFileChoose} />
 
-        <button type="submit" className="btn btn-success mt-3">
-          Update Profile
-        </button>
+          <button type="button" className="upload-btn" onClick={handlePDFUpload}>
+            {uploading ? "Uploading..." : "Upload PDF"}
+          </button>
+
+          {form.resume && (
+            <p className="uploaded-file">
+              <a href={`http://localhost:3500${form.resume}`} target="_blank" rel="noreferrer">
+                View Uploaded Resume
+              </a>
+            </p>
+          )}
+        </div>
+
+        <button type="submit" className="submit-btn">Update Profile</button>
       </form>
     </div>
   );

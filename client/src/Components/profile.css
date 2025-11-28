@@ -1,8 +1,150 @@
-.profile-name{
-  font-size: 28px;
-
+/* WRAPPER: LEFT + RIGHT */
+.profile-wrapper {
+  display: flex;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 10px;
 }
-.profile-heading{
-    font-size: 20px;
-    color: rgb(94, 155, 179);
+
+/* LEFT CARD */
+.left-card {
+  width: 32%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.left-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.left-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.left-role {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.left-summary {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* SKILLS */
+.left-section {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.left-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.skills-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  background: #eef2ff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #4338ca;
+}
+
+/* EDIT BUTTON */
+.edit-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 25px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background: #4338ca;
+}
+
+/* RIGHT CARD */
+.right-card {
+  width: 68%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* EACH WHITE BOX */
+.info-card {
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.section-heading {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+/* INFO GRID */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 12px;
+  column-gap: 15px;
+  font-size: 15px;
+}
+
+/* RESUME BUTTON */
+.resume-row {
+  margin-top: 18px;
+}
+
+.resume-btn {
+  background: #2563eb;
+  padding: 10px 16px;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.resume-btn:hover {
+  background: #1e40af;
+}
+
+/* RESPONSIVE */
+@media (max-width: 950px) {
+  .profile-wrapper {
+    flex-direction: column;
+  }
+
+  .left-card, .right-card {
+    width: 100%;
+  }
 }

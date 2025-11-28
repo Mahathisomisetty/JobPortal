@@ -39,7 +39,7 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-title">Contact</h3>
           <ul className="footer-list">
-            <li>Email: support@jobfinder.com</li>
+            <li>Email: support@anyhire.com</li>
             <li>Phone: +91 98765 43210</li>
             <li>Address: Hyderabad, India</li>
           </ul>

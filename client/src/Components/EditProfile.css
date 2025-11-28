@@ -1,88 +1,123 @@
-/* MAIN CONTAINER (NO BACKGROUND BOX) */
+/* MAIN PAGE */
 .edit-container {
-  max-width: 650px;
-  margin: 40px auto;
-  padding: 10px;
+  width: 100%;
+  min-height: 100vh;
+  background: #f4f6fb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
 }
 
-.edit-container h2 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-weight: 700;
-  color: #333;
-}
-
-/* FORM LABELS */
-.edit-form label {
+/* PAGE TITLE */
+.edit-title {
+  font-size: 40px;
   font-weight: 600;
-  display: block;
-  margin-bottom: 6px;
-  color: #444;
-  font-size: 14px;
+  margin-bottom: 25px;
+  color: #222;
 }
 
-/* CLEAN INPUT FIELDS (FLAT UI) */
-.edit-form input,
-.edit-form textarea,
-.edit-form select {
+/* MAIN CARD */
+.edit-form {
+ /*  ⬅ Increased width */
+  background-color: yellow;
   width: 90%;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* FORM GROUP (DEFAULT) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* LABELS */
+.form-group label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+}
+
+/* INPUT FIELDS */
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
   padding: 12px;
-  border: 1px solid #cfcfcf;
   border-radius: 6px;
-  margin-bottom: 20px;
+  border: 1px solid #ccc;
   font-size: 15px;
   background: #fafafa;
-  transition: 0.2s ease-in-out;
+  transition: 0.25s ease;
 }
 
 .edit-form input:focus,
-.edit-form textarea:focus,
-.edit-form select:focus {
-  border-color: #4caf50;
-  background: #fff;
+.edit-form select:focus,
+.edit-form textarea:focus {
+  border-color: #4d5fff;
+  background: white;
+  box-shadow: 0 0 5px rgba(77, 95, 255, 0.3);
   outline: none;
 }
 
 /* TEXTAREA */
-.edit-form textarea {
-  resize: vertical;
-  min-height: 80px;
+textarea {
+  min-height: 90px;
 }
 
-/* CHECKBOX */
-.edit-form input[type="checkbox"] {
-  width: auto;
-  margin-right: 8px;
+/* ----------  TWO-IN-A-ROW  ---------- */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 in a row */
+  gap: 25px;
 }
 
-/* BUTTON */
-.edit-form button {
-  width: 100%;
-  padding: 12px;
-  background-color: #28a745;
-  border: none;
+/* THREE-IN-A-ROW (if needed) */
+.form-row-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* CHECKBOX STYLE */
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* SUBMIT BUTTON */
+.submit-btn {
+  background: #4d5fff;
   color: white;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 14px;
   border-radius: 6px;
+  font-size: 16px;
+  border: none;
   cursor: pointer;
-  transition: 0.3s;
+  margin-top: 15px;
+  font-weight: 600;
+  width: 250px;
+  align-self: center;
 }
 
-.edit-form button:hover {
-  background-color: #208838;
+.submit-btn:hover {
+  background: #3a4ed8;
 }
 
-/* MOBILE RESPONSIVE */
-@media (max-width: 480px) {
-  .edit-container {
-    margin: 20px;
-    padding: 5px;
+/* RESPONSIVE */
+@media(max-width: 900px) {
+  .edit-form {
+    width: 95%;
   }
-
-  .edit-form input,
-  .edit-form textarea,
-  .edit-form select {
-    font-size: 14px;
+  .form-row,
+  .form-row-3 {
+    grid-template-columns: 1fr;
   }
 }

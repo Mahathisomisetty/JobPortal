@@ -14,80 +14,101 @@ export default function Profile() {
     return null;
   }
 
-  // ⭐ ADDED: refetch for auto-refresh
-  const { data: user, isLoading, error, refetch } = useGetUserByIdQuery(userId, {
-    skip: !userId,
-  });
+  const { data: user, isLoading, error, refetch } =
+    useGetUserByIdQuery(userId, { skip: !userId });
 
-  // ⭐ ADDED: auto-refresh when page opens
   React.useEffect(() => {
     if (userId) refetch();
-  }, [userId, refetch]);
+  }, [userId]);
 
-  if (isLoading) return <h2>Loading user...</h2>;
-  if (error || !user) return <h2>Unable to load user</h2>;
+  if (isLoading) return <h2>Loading...</h2>;
+  if (error || !user) return <h2>Error loading profile</h2>;
+
+  const profileImage =
+    user.profile.profileImage
+      ? `http://localhost:3500${user.profile.profileImage}`
+      : "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
   return (
-    <div className="profile-container shadow-lg p-4">
-      <div className="profile-info">
+    <div className="profile-wrapper">
 
-        <p className="profile-item profile-name">
-          <i className="bi bi-person-fill icon"></i>&nbsp;
-          <strong>{user.fullname}</strong>
-        </p>
+      {/* LEFT SIDE CARD */}
+      <div className="left-card">
+        <img src={profileImage} className="left-img" alt="Profile" />
 
-        <p className="profile-item profile-heading">
-          <i className="bi bi-briefcase-fill icon"></i>&nbsp;
-          {user.profile.headline}
-        </p>
+        <h2 className="left-name">{user.fullname}</h2>
+        <p className="left-role">{user.profile.headline}</p>
 
-        <p className="profile-item">
-          <strong>Summary:</strong>&nbsp; {user.profile.Summary || "N/A"}
-        </p>
+        <p className="left-summary">{user.profile.Summary || "No summary provided."}</p>
 
-        <p className="profile-item">
-          <i className="bi bi-envelope-fill icon"></i>&nbsp;
-          {user.email}
-        </p>
+        {/* SKILLS */}
+        <div className="left-section">
+          <h3 className="left-title">Skills</h3>
+          <div className="skills-box">
+            {user.profile.skills?.map((skill, index) => (
+              <span className="skill-tag" key={index}>{skill}</span>
+            ))}
+          </div>
+        </div>
 
-        <p className="profile-item">
-          <i className="bi bi-telephone-fill icon"></i>&nbsp;
-          {user.phonenumber}
-        </p>
+        <button
+          className="edit-btn"
+          onClick={() => navigate("/edit-profile")}
+        >
+          Edit Profile
+        </button>
+      </div>
 
-        {user.profile.skills?.length > 0 && (
-          <p className="profile-item">
-            <i className="bi bi-lightning-fill icon"></i>&nbsp;
-            <strong>Skills:</strong>&nbsp; {user.profile.skills.join(", ")}
-          </p>
-        )}
-        {/* Resume file  */}
-<p className="profile-item">
-  <i className="bi bi-file-earmark-pdf-fill icon"></i>&nbsp;
+      {/* RIGHT SIDE CARD */}
+      <div className="right-card">
 
-  {user.profile.resume ? (
-    <a
-      href={`http://localhost:3500${user.profile.resume}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ color: "#0d6efd", textDecoration: "underline" }}
-    >
-      View Resume (PDF)
-    </a>
-  ) : (
-    "No resume uploaded"
-  )}
-</p>
+        {/* BASIC INFO */}
+        <div className="info-card">
+          <h3 className="section-heading">Basic Information</h3>
 
+          <div className="info-grid">
+            <div><strong>Email:</strong> {user.email}</div>
+            <div><strong>Phone:</strong> {user.phonenumber}</div>
+            <div><strong>Location:</strong> {user.profile.location || "N/A"}</div>
+            <div><strong>Experience:</strong> {user.profile.experience || "N/A"}</div>
+          </div>
+
+          <div className="resume-row">
+            {user.profile.resume ? (
+              <a
+                href={`http://localhost:3500${user.profile.resume}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="resume-btn"
+              >
+                View Resume
+              </a>
+            ) : (
+              "No resume uploaded"
+            )}
+          </div>
+        </div>
+
+        {/* EXPERIENCE SECTION */}
+        <div className="info-card">
+          <h3 className="section-heading">Experience</h3>
+          <p>No experience added.</p>
+        </div>
+
+        {/* EDUCATION SECTION */}
+        <div className="info-card">
+          <h3 className="section-heading">Education</h3>
+          <p>No education added.</p>
+        </div>
+
+        {/* CERTIFICATIONS SECTION */}
+        <div className="info-card">
+          <h3 className="section-heading">Certifications</h3>
+          <p>No certifications added.</p>
+        </div>
 
       </div>
 
-      <button
-        className="btn btn-primary mb-3 mt-3"
-        onClick={() => navigate("/edit-profile")}
-      >
-        <i className="bi bi-pencil-square"></i> Edit Profile
-      </button>
     </div>
   );
 }
