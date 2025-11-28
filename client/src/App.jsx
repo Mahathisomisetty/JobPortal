@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar";
-import Home from "./Components/Home";
+import Jobs from "./Components/Jobs";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Profile from "./Components/Profile";
@@ -11,6 +11,7 @@ import EditProfile from "./Components/EditProfile";
 import PostJob from "./Components/PostJob";   // ⭐ ADD THIS
 import ApplicationsOverview from "./Components/ApplicationsOverview";
 import ViewDetails from "./Components/ViewDetails";
+import Home from "./Components/Home";
 export default function App() {
   return (
     <>
@@ -18,12 +19,14 @@ export default function App() {
 
       <Routes>
         {/* PUBLIC ROUTES */}
+         <Route path="/" element={<Home />} />
+         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/aboutus" element={<AboutUs />} />
+        
 
         {/* PROTECTED ROUTES */}
-        <Route path="/home" element={<Home />} />
+        <Route path="/Jobs" element={<Jobs />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/userApplications" element={<UserApplications />} />
         <Route path="/edit-profile" element={<EditProfile />} />

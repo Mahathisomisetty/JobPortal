@@ -21,15 +21,17 @@ export default function Navbar() {
         <>
           <img className="logo" src="/logo.png" alt="Logo" />
 
-          <Link className="nav-item" to="/home">Home</Link>
+          {/* ⭐ BOTH USERS */}
+          <Link className="nav-item" to="/">Home</Link>
+          <Link className="nav-item" to="/Jobs">Jobs</Link>
           <Link className="nav-item" to="/profile">Profile</Link>
 
-          {/* ⭐ SHOW APPLIED JOBS FOR BOTH USER & RECRUITER */}
+          {/* ⭐ APPLIED JOBS */}
           <Link className="nav-item" to="/userApplications">
             Applied Jobs
           </Link>
 
-          {/* ⭐ RECRUITER ONLY */} 
+          {/* ⭐ RECRUITER ONLY */}
           {role === "recruiter" && (
             <>
               <Link className="nav-item" to="/post-job">Post Job</Link>
@@ -45,9 +47,11 @@ export default function Navbar() {
         </>
       ) : (
         <>
+          {/* ⭐ PUBLIC NAV */}
+          <Link className="nav-item" to="/">Home</Link>
+          <Link className="nav-item" to="/aboutus">About Us</Link>
           <Link className="nav-item" to="/login">Login</Link>
           <Link className="nav-item" to="/register">Register</Link>
-          <Link className="nav-item" to="/aboutus">About Us</Link>
         </>
       )}
     </nav>

@@ -23,12 +23,9 @@ export default function Login() {
       // Save userId
       localStorage.setItem("userId", res.data.user.id);
 
-      // ⭐ ROLE-BASED REDIRECTION
-      if (res.data.user.role === "recruiter") {
-        navigate("/recruiter-home");   // Recruiter Dashboard
-      } else {
-        navigate("/home");             // User Dashboard
-      }
+      // ⭐ SEND EVERYONE TO HOME PAGE
+      navigate("/"); 
+
     } else {
       alert("Invalid login");
     }
