@@ -1,6 +1,6 @@
-# 🚀 MERN Job Portal – Full Stack Project
+#  MERN Job Portal – Full Stack Project
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 ### **Frontend**
 - React
@@ -13,7 +13,6 @@
 - Node.js
 - Express.js
 - MongoDB + Mongoose
-- Multer (file uploads)
 - bcrypt
 - jsonwebtoken
 - cors
@@ -22,7 +21,7 @@
 - multer(file upload)
 ---
 
-## 🎯 Features (Final Project Flow)
+##  Features (Final Project Flow)
 
 ### **1. Authentication**
 - Register  
@@ -41,17 +40,6 @@ Users can:
 - Search jobs  
 - Apply for jobs  
 - View applied jobs  
-
----
-
-### **3. Admin Features**
-Admin can:
-- Create jobs  
-- Update jobs  
-- Delete jobs  
-- View all applicants  
-- Filter applicants  
-- Dashboard using **MongoDB Aggregation**
 
 ---
 
@@ -79,16 +67,11 @@ Admin can:
 
 ---
 
-## 🌐 Deployment
-- **Frontend:** Vercel  
-- **Backend:** Render  
-- **Database:** MongoDB Atlas  
-- **Environment Variables:**  
 # Backend 
 - mkdir backend(foldername for backend jobportalBE)
 - cd backend
 - npm init -y
-- npm install express mongoose cors dotenv bcrypt jsonwebtoken multer
+- npm install express mongoose cors jsonwebtoken multer
 # FrontEnd
 - mkdir frontEnd(foldername for frontend jobportalFE)
 -cd frontEnd
