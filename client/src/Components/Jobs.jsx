@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useGetAllJobsQuery } from "../Features/apiSlice";
 import { useNavigate } from "react-router-dom";
-import "./Jobs.css";
-
+import "./Jobs.css"
 export default function Jobs() {
   const navigate = useNavigate();
   const { data: jobs = [], isLoading } = useGetAllJobsQuery();

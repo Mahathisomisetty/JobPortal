@@ -1,26 +1,83 @@
-.close-btn{
-    background-color: rgb(184, 181, 181);
-    border: none;
-    padding: 5px;
-    width: 50px;
-    font-size: 25px;
-    float: right;
-}
+/* ================================
+   PAGE WRAPPER
+================================ */
 .details-container {
-    background-color: #e2e2e4;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    padding: 40px 50px;
-    margin: 40px auto;
-    border-radius: 20px;
-    max-width: 800px;
-    transition: 0.3s ease;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 35px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+  font-family: "Segoe UI", sans-serif;
+  animation: fadeIn 0.5s ease;
 }
 
-.details-container:hover {
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
-    transform: translateY(-4px);
+/* Fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.apply-btn{
-    width: 95px;
+/* ================================
+   TITLE
+================================ */
+.details-container h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #1c1c1c;
+  margin-bottom: 15px;
+}
+
+/* ================================
+   INFO TEXT
+================================ */
+.details-container p {
+  font-size: 17px;
+  color: #444;
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.details-container p strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* ================================
+   APPLY BUTTON
+================================ */
+.vapply-btn {
+  margin-top: 25px;
+  padding: 14px 22px;
+  background: #0a66c2;  /* LinkedIn Blue */
+  color: white;
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.vapply-btn:hover {
+  background: #004182;
+  transform: translateY(-2px);
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .details-container {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .details-container h1 {
+    font-size: 24px;
+  }
+
+  .apply-btn {
+    width: 100%;
+  }
 }

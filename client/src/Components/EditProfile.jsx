@@ -109,8 +109,6 @@ export default function EditProfile() {
 
   return (
     <div className="edit-container">
-      <h2 className="edit-title">Edit Profile</h2>
-
       <form onSubmit={handleSubmit} className="edit-form">
 
         {/* FULL NAME */}

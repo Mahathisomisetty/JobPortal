@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetUserApplicationsQuery } from "../Features/apiSlice";
-import "./UserApplications.css";
+import "./UserApplications.css"
 export default function UserApplications() {
   const userId = localStorage.getItem("userId");
 
@@ -31,27 +31,30 @@ export default function UserApplications() {
   }
 
   return (
-    <div>
-      <h1>My Applications</h1>
+   <div className="applications-container">
+  <h1>My Applications</h1>
 
-      {apps.length === 0 && <p>No applications found.</p>}
+  {apps.length === 0 && <p className="no-apps">No applications found.</p>}
 
-      {apps.map((app, idx) => (
-        <div key={idx} className="card">
-          <h3>{app.jobId?.title}</h3>
-          <p>{app.jobId?.company}</p>
-          <p>Applied on: {new Date(app.appliedAt).toLocaleDateString()}</p>
+  {apps.map((app, idx) => (
+    <div key={idx} className="card">
 
-          {/* ⭐ Withdraw Button */}
-          <button
-            onClick={() => handleWithdraw(app._id)}
-            className="withdraw-btn"
-            style={{ marginTop: "10px", background: "red", color: "white", padding: "8px", borderRadius: "5px" }}
-          >
-            Withdraw Application
-          </button>
-        </div>
-      ))}
+      <h3>{app.jobId?.title}</h3>
+      <p className="company-name">{app.jobId?.company}</p>
+      <p className="date">Applied on: {new Date(app.appliedAt).toLocaleDateString()}</p>
+
+      <span className="status-badge">Applied</span>
+
+      <button
+        onClick={() => handleWithdraw(app._id)}
+        className="withdraw-btn"
+      >
+        Withdraw Application
+      </button>
+
     </div>
+  ))}
+</div>
+
   );
 }

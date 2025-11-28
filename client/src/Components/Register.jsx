@@ -41,9 +41,8 @@ export default function Register() {
 
   return (
     <div>
-      <h2>Register</h2>
-
       <form onSubmit={handleSubmit}>
+       <h2>Register</h2>
 
         <input
           type="text"

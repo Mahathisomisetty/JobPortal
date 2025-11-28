@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetJobByIdQuery } from "../Features/apiSlice";
-
+import "./ViewDetails.css"
 export default function ViewDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ export default function ViewDetails() {
       <p><strong>Salary:</strong> {job.salary}</p>
       <p><strong>Description:</strong> {job.description}</p>
 
-      <button onClick={handleApply} className="apply-btn">
+      <button onClick={handleApply} className="vapply-btn">
         Apply Now
       </button>
     </div>

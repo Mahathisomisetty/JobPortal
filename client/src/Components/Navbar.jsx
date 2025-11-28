@@ -27,6 +27,7 @@ export default function Navbar() {
         <>
           <Link className="nav-item" to="/">Home</Link>
           <Link className="nav-item" to="/Jobs">Jobs</Link>
+          <Link className="nav-item" to="/userApplications">Applied Jobs</Link>
 
           {/* ⭐ CLICKABLE DROPDOWN */}
           <div className="dropdown">
@@ -49,7 +50,6 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link className="nav-item" to="/userApplications">Applied Jobs</Link>
 
           {role === "recruiter" && (
             <>

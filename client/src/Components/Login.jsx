@@ -31,35 +31,46 @@ export default function Login() {
     }
   }
 
-  return (
-    <div className="login-container">
-      <h2>Login</h2>
+    return (
+  <div className="login-container">
+    <div className="login-box">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          required
-        />
-
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-          required
-        />
-
-        <button type="submit">Login</button>
-
+      {/* LEFT SIDE FORM */}
+      <div className="login-left">
+        <h2>Login</h2>
         <p>
-          Don't have an account? <a href="/register">Register</a>
+          Don’t have an account? <a href="/register">Create your account</a>
         </p>
-      </form>
+
+        <form onSubmit={handleSubmit}>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
+          />
+
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            required
+          />
+
+          <button type="submit">Login</button>
+        </form>
+      </div>
+
+      {/* RIGHT SIDE WELCOME PANEL */}
+      <div className="login-right">
+       
+      </div>
     </div>
-  );
+  </div>
+);
+
 }

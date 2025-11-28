@@ -1,123 +1,159 @@
-/* MAIN PAGE */
+/* ================================
+   MAIN PAGE WRAPPER (LinkedIn Style)
+================================ */
 .edit-container {
   width: 100%;
   min-height: 100vh;
-  background: #f4f6fb;
+  background: #eef3f8; /* LinkedIn light grey */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 40px;
+  padding: 40px 0;
 }
 
 /* PAGE TITLE */
 .edit-title {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 600;
   margin-bottom: 25px;
-  color: #222;
+  color: #283e4a; /* LinkedIn dark text */
+  font-family: "Segoe UI", sans-serif;
 }
 
-/* MAIN CARD */
+/* ================================
+   MAIN FORM CARD (White Card)
+================================ */
 .edit-form {
- /*  ⬅ Increased width */
-  background-color: yellow;
-  width: 90%;
-  padding: 40px;
+  width: 80%;
+  background: #ffffff; /* LinkedIn white card */
+  padding: 35px;
   border-radius: 12px;
-  border: 1px solid #ddd;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.08);
+  border: 1px solid #dce6f1;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
 
-/* FORM GROUP (DEFAULT) */
+/* FORM GROUP */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 /* LABELS */
 .form-group label {
   font-size: 15px;
   font-weight: 600;
-  color: #444;
+  color: #1c1c1c;
+  font-family: "Segoe UI", sans-serif;
 }
 
-/* INPUT FIELDS */
+/* INPUTS & TEXTAREAS */
 .edit-form input,
 .edit-form select,
 .edit-form textarea {
   padding: 12px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #ccd6dd;
+  background: #f9fafb;
   font-size: 15px;
-  background: #fafafa;
-  transition: 0.25s ease;
+  font-family: "Segoe UI", sans-serif;
+  transition: 0.2s ease-in-out;
 }
 
 .edit-form input:focus,
 .edit-form select:focus,
 .edit-form textarea:focus {
-  border-color: #4d5fff;
-  background: white;
-  box-shadow: 0 0 5px rgba(77, 95, 255, 0.3);
+  border-color: #0a66c2; /* LinkedIn blue */
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(10, 102, 194, 0.15);
   outline: none;
 }
 
 /* TEXTAREA */
 textarea {
-  min-height: 90px;
+  min-height: 110px;
 }
 
-/* ----------  TWO-IN-A-ROW  ---------- */
+/* ================================
+   GRID ROWS
+================================ */
 .form-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 in a row */
+  grid-template-columns: repeat(2, 1fr);
   gap: 25px;
 }
 
-/* THREE-IN-A-ROW (if needed) */
 .form-row-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
 
-/* CHECKBOX STYLE */
+/* CHECKBOXES */
 .form-checkbox {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* SUBMIT BUTTON */
+/* ================================
+   SUBMIT BUTTON (LinkedIn Blue)
+================================ */
 .submit-btn {
-  background: #4d5fff;
+  background: #0a66c2; /* LinkedIn Primary Blue */
   color: white;
-  padding: 14px;
+  padding: 14px 20px;
   border-radius: 6px;
   font-size: 16px;
   border: none;
   cursor: pointer;
-  margin-top: 15px;
   font-weight: 600;
   width: 250px;
   align-self: center;
+  transition: 0.2s;
 }
 
 .submit-btn:hover {
-  background: #3a4ed8;
+  background: #004182; /* darker LinkedIn blue */
+}
+.upload-btn{
+  width: 100px;
+  height: 30px;
+  padding: 7px;
+  background-color: #0a66c2;
+  border: 2px white;
+  border-radius: 5px;
+  color: white;
+}
+.upload-btn:hover{
+     width: 100px;
+  height: 30px;
+  padding: 7px;
+  background-color: #0c4278;
+  border: 2px white;
+  border-radius: 5px;
+  color: white;
+ 
 }
 
-/* RESPONSIVE */
-@media(max-width: 900px) {
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+@media (max-width: 900px) {
   .edit-form {
     width: 95%;
+    padding: 25px;
   }
+
   .form-row,
   .form-row-3 {
     grid-template-columns: 1fr;
+  }
+
+  .submit-btn {
+    width: 100%;
   }
 }

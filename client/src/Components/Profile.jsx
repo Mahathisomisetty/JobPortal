@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useGetUserByIdQuery } from "../Features/apiSlice";
-import "./profile.css";
+import "./Profile.css";
 import React from "react";
 
 export default function Profile() {
