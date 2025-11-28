@@ -61,6 +61,25 @@ export default function Profile() {
             <strong>Skills:</strong>&nbsp; {user.profile.skills.join(", ")}
           </p>
         )}
+        {/* Resume file  */}
+<p className="profile-item">
+  <i className="bi bi-file-earmark-pdf-fill icon"></i>&nbsp;
+
+  {user.profile.resume ? (
+    <a
+      href={`http://localhost:3500${user.profile.resume}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ color: "#0d6efd", textDecoration: "underline" }}
+    >
+      View Resume (PDF)
+    </a>
+  ) : (
+    "No resume uploaded"
+  )}
+</p>
+
+
       </div>
 
       <button

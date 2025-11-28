@@ -19,7 +19,7 @@
 - cors
 - dotenv
 - express-validator (optional)
-
+- multer(file upload)
 ---
 
 ## 🎯 Features (Final Project Flow)

@@ -104,22 +104,29 @@ export const apiSlice = createApi({
     getUserApplications: builder.query({
       query: (userId) => `/applyjob/user/${userId}`,
     }),
+    
+    //upload pdf file(resume)
+    uploadPDF: builder.mutation({
+      query: (file) => {
+        const formData = new FormData();
+        formData.append("resume", file);
+
+        return {
+          url: "/upload/resume",
+          method: "POST",
+          body: formData,
+        };
+      },
+    }),
 
   }),
 });
 
 // Export Hooks
 export const {
-  useRegisterUserMutation,
-  useLoginUserMutation,
-  useGetUserByIdQuery,
-  useUpdateUserMutation,
-
-  useCreateJobMutation,
-  useGetRecruiterJobsQuery,
-  useUpdateJobMutation,
-  useDeleteJobMutation,
-  useGetAllJobsQuery,
-  useGetJobByIdQuery,
-  useGetUserApplicationsQuery,
+  useRegisterUserMutation, useLoginUserMutation,useGetUserByIdQuery,
+  useUpdateUserMutation,useCreateJobMutation,
+  useGetRecruiterJobsQuery,useUpdateJobMutation,useDeleteJobMutation,
+  useGetAllJobsQuery,useGetJobByIdQuery,useGetUserApplicationsQuery,
+   useUploadPDFMutation,
 } = apiSlice;

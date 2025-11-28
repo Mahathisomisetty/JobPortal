@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetUserApplicationsQuery } from "../Features/apiSlice";
-
+import "./UserApplications.css";
 export default function UserApplications() {
   const userId = localStorage.getItem("userId");
 

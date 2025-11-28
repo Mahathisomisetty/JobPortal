@@ -1,0 +1,66 @@
+/* Container styling */
+.applications-container {
+  padding: 20px;
+}
+
+.applications-container h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Grid layout */
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 50px; /* ⭐ gap works now */
+  margin-top: 20px;
+}
+
+/* Card styling */
+.card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #007bff;
+  transition: 0.3s ease;
+}
+
+/* Card hover */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Job title */
+.card h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Company name */
+.card p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Withdraw button */
+.withdraw-btn {
+  margin-top: 12px;
+  background: #e63946 !important;
+  color: white !important;
+  padding: 10px !important;
+  border-radius: 6px;
+  border: none;
+  width: 30%; /* ⭐ Make button full width for card */
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.withdraw-btn:hover {
+  background: #c92c3b !important;
+}

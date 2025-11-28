@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {
   useGetUserByIdQuery,
   useUpdateUserMutation,
+  useUploadPDFMutation,
 } from "../Features/apiSlice";
 import "./editprofile.css";
 
@@ -12,6 +13,7 @@ export default function EditProfile() {
 
   const { data: user } = useGetUserByIdQuery(userId);
   const [updateUser] = useUpdateUserMutation();
+  const [uploadPDF, { isLoading: uploading }] = useUploadPDFMutation();
 
   const [form, setForm] = useState({
     fullname: "",
@@ -24,10 +26,10 @@ export default function EditProfile() {
     education: "",
     resume: "",
     company: "",
-    isVerified: false
+    isVerified: false,
   });
 
-  // Pre-fill data when user is loaded
+  // Prefill user data
   useEffect(() => {
     if (user) {
       setForm({
@@ -41,22 +43,55 @@ export default function EditProfile() {
         education: user.profile?.education?.join(", ") || "",
         resume: user.profile?.resume || "",
         company: user.profile?.company || "",
-        isVerified: user.profile?.isVerified || false
+        isVerified: user.profile?.isVerified || false,
       });
     }
   }, [user]);
 
-  // Handle input changes
+  // Input changes
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
     setForm({
       ...form,
       [name]: type === "checkbox" ? checked : value,
     });
   };
 
-  // Submit Update
+  // File upload
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChoose = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.type !== "application/pdf") {
+      alert("Only PDF files allowed");
+      return;
+    }
+
+    setSelectedFile(file);
+  };
+
+  // Upload handler
+  const handlePDFUpload = async () => {
+    if (!selectedFile) return alert("Please choose a PDF file");
+
+    try {
+      const res = await uploadPDF(selectedFile).unwrap();
+
+      setForm((prev) => ({
+        ...prev,
+        resume: res.filePath, // auto save uploaded path
+      }));
+
+      alert("Resume uploaded successfully!");
+    } catch (err) {
+      console.log(err);
+      alert("Upload failed");
+    }
+  };
+
+  // Submit update
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -70,7 +105,7 @@ export default function EditProfile() {
         experience: Number(form.experience),
         skills: form.skills.split(",").map((s) => s.trim()),
         education: form.education.split(",").map((e) => e.trim()),
-        resume: form.resume,
+        resume: form.resume, // uploaded resume path
         company: form.company,
         isVerified: form.isVerified,
       },
@@ -110,7 +145,6 @@ export default function EditProfile() {
           <option value="Manager">Manager</option>
           <option value="Intern">Intern</option>
         </select>
-
 
         <label>Summary</label>
         <textarea
@@ -175,13 +209,37 @@ export default function EditProfile() {
           onChange={handleChange}
         />
 
-        <label>Resume (URL or filename)</label>
+        {/* ⭐ FILE UPLOAD ONLY ⭐ */}
+        <label>Upload Resume (PDF)</label>
         <input
-          type="text"
-          name="resume"
-          value={form.resume}
-          onChange={handleChange}
+          type="file"
+          accept="application/pdf"
+          onChange={handleFileChoose}
+          className="form-control"
         />
+
+        <button
+          type="button"
+          onClick={handlePDFUpload}
+          className="btn btn-warning mt-2"
+          disabled={uploading}
+        >
+          {uploading ? "Uploading..." : "Upload PDF"}
+        </button>
+
+        {/* Show Uploaded File */}
+        {form.resume && (
+          <p className="mt-2">
+            Uploaded File:{" "}
+            <a
+              href={`http://localhost:3500${form.resume}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              View Resume (PDF)
+            </a>
+          </p>
+        )}
 
         <button type="submit" className="btn btn-success mt-3">
           Update Profile
