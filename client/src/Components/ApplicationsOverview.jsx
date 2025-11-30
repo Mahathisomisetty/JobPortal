@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetRecruiterApplicationsQuery } from "../Features/apiSlice";
-
+import "./ApplicationsOverview.css";
 export default function ApplicationsOverview() {
   const user = JSON.parse(localStorage.getItem("user")); // Recruiter
 
@@ -11,11 +11,12 @@ export default function ApplicationsOverview() {
     user?._doc?._id ||
     localStorage.getItem("userId");
 
-  // console.log("📌 Recruiter ID Used:", recruiterId); // DEBUG
+  // console.log(" Recruiter ID Used:", recruiterId); 
 
   const { data: apps = [], isLoading, isError } =
     useGetRecruiterApplicationsQuery(recruiterId, {
       skip: !recruiterId,
+      pollingInterval: 10000,//page refresh after every 10 seconds
     });
 
   if (isLoading) return <h2>Loading applications...</h2>;

@@ -24,6 +24,7 @@ export default function EditProfile() {
     experience: "",
     skills: "",
     education: "",
+    certifications: "",
     resume: "",
     company: "",
     isVerified: false,
@@ -38,8 +39,19 @@ export default function EditProfile() {
         phonenumber: user.phonenumber || "",
         location: user.profile?.location || "",
         experience: user.profile?.experience || "",
-        skills: user.profile?.skills?.join(", ") || "",
-        education: user.profile?.education?.join(", ") || "",
+        skills: Array.isArray(user.profile?.skills)
+          ? user.profile.skills.join(", ")
+          : user.profile?.skills || "",
+
+        education: Array.isArray(user.profile?.education)
+          ? user.profile.education.join(", ")
+          : user.profile?.education || "",
+
+        // ⭐ FIXED — Works for string OR array
+        certifications: Array.isArray(user.profile?.certifications)
+          ? user.profile.certifications.join(", ")
+          : user.profile?.certifications || "",
+
         resume: user.profile?.resume || "",
         company: user.profile?.company || "",
         isVerified: user.profile?.isVerified || false,
@@ -94,8 +106,23 @@ export default function EditProfile() {
         Summary: form.Summary,
         location: form.location,
         experience: Number(form.experience),
-        skills: form.skills.split(",").map((s) => s.trim()),
-        education: form.education.split(",").map((e) => e.trim()),
+
+        skills: form.skills
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => s),
+
+        education: form.education
+          .split(",")
+          .map((e) => e.trim())
+          .filter((e) => e),
+
+        // ⭐ FIXED — Now sends array ALWAYS
+        certifications: form.certifications
+          .split(",")
+          .map((c) => c.trim())
+          .filter((c) => c),
+
         resume: form.resume,
         company: form.company,
         isVerified: form.isVerified,
@@ -151,7 +178,7 @@ export default function EditProfile() {
           </div>
         </div>
 
-        {/* SUMMARY FULL WIDTH */}
+        {/* SUMMARY */}
         <div className="form-group">
           <label>Summary</label>
           <textarea name="Summary" value={form.Summary} onChange={handleChange}></textarea>
@@ -168,6 +195,16 @@ export default function EditProfile() {
             <label>Education</label>
             <input name="education" value={form.education} onChange={handleChange} />
           </div>
+        </div>
+
+        {/* CERTIFICATIONS */}
+        <div className="form-group">
+          <label>Certifications</label>
+          <input
+            name="certifications"
+            value={form.certifications}
+            onChange={handleChange}
+          />
         </div>
 
         {/* COMPANY + VERIFIED */}
@@ -188,7 +225,7 @@ export default function EditProfile() {
           </div>
         </div>
 
-        {/* FILE UPLOAD */}
+        {/* RESUME UPLOAD */}
         <div className="form-group">
           <label>Upload Resume (PDF)</label>
 
@@ -207,7 +244,9 @@ export default function EditProfile() {
           )}
         </div>
 
-        <button type="submit" className="submit-btn">Update Profile</button>
+        <button type="submit" className="submit-btn">
+          Update Profile
+        </button>
       </form>
     </div>
   );

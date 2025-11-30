@@ -12,7 +12,7 @@ router.get("/getall", async (req, res) => {
   }
 });
 
-// GET user by ID  ✔ FIXED
+// GET user by ID
 router.get("/getUser/:id", async (req, res) => {
   try {
     const user = await userModel.findById(req.params.id);
@@ -27,14 +27,38 @@ router.get("/getUser/:id", async (req, res) => {
   }
 });
 
-// UPDATE USER
+// UPDATE USER (🔥 FIXED for nested profile fields)
 router.put("/updateUser/:id", async (req, res) => {
   try {
     const userId = req.params.id;
 
+    // Build update object safely for nested fields
+    const updateData = {
+      fullname: req.body.fullname,
+      phonenumber: req.body.phonenumber,
+      email: req.body.email,
+      role: req.body.role,
+
+      "profile.headline": req.body.profile?.headline,
+      "profile.Summary": req.body.profile?.Summary,
+      "profile.experience": req.body.profile?.experience,
+      "profile.skills": req.body.profile?.skills,
+      "profile.education": req.body.profile?.education,
+      "profile.certifications": req.body.profile?.certifications,
+      "profile.location": req.body.profile?.location,
+      "profile.company": req.body.profile?.company,
+      "profile.resume": req.body.profile?.resume,
+      "profile.profileImage": req.body.profile?.profileImage,
+    };
+
+    // Remove undefined fields (MUST DO)
+    Object.keys(updateData).forEach(
+      (key) => updateData[key] === undefined && delete updateData[key]
+    );
+
     const updatedUser = await userModel.findByIdAndUpdate(
       userId,
-      req.body,
+      { $set: updateData },
       { new: true }
     );
 
@@ -43,10 +67,11 @@ router.put("/updateUser/:id", async (req, res) => {
 
     res.send({
       msg: "Profile updated successfully",
-      user: updatedUser
+      user: updatedUser,
     });
 
   } catch (err) {
+    console.log(err);
     res.status(500).send({ msg: "Error updating user" });
   }
 });

@@ -137,6 +137,23 @@
 .resume-btn:hover {
   background: #1e40af;
 }
+.delete-account-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.delete-account-btn:hover {
+  background: #dc2626;
+}
+
 
 /* RESPONSIVE */
 @media (max-width: 950px) {

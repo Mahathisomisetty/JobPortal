@@ -1,0 +1,71 @@
+/* ============================
+   PAGE CONTAINER  
+   Targets ONLY: <div style="padding: 20px">
+============================ */
+div[style*="padding: 20px"] {
+  background: #f3f4f6;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Page title */
+div[style*="padding: 20px"] > h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+/* ============================
+   APPLICATION CARD
+============================ */
+div[style*="padding: 20px"] > div {
+  background: #ffffff !important;
+  padding: 22px !important;
+  border-radius: 12px !important;
+  margin-bottom: 20px !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1) !important;
+  transition: 0.25s ease !important;
+}
+
+div[style*="padding: 20px"] > div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
+}
+
+/* Job title */
+div[style*="padding: 20px"] h3 {
+  font-size: 20px;
+  color: #4f46e5;
+  margin-bottom: 10px;
+}
+
+/* Text inside card */
+div[style*="padding: 20px"] p {
+  font-size: 15px;
+  color: #374151;
+  margin: 5px 0;
+}
+
+/* Text highlights */
+div[style*="padding: 20px"] strong {
+  color: #111827;
+}
+
+/* Resume link */
+div[style*="padding: 20px"] a {
+  color: #7c3aed;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+div[style*="padding: 20px"] a:hover {
+  text-decoration: underline;
+}
+
+/* Empty state text */
+div[style*="padding: 20px"] > p {
+  color: #6b7280;
+  margin-top: 10px;
+  font-size: 16px;
+}
