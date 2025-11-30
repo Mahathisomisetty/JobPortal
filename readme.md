@@ -7,17 +7,14 @@
 - Redux Toolkit + RTK Query
 - React Router
 - Formik + Yup
-- Tailwind CSS **or** Bootstrap
+- css
 
 ### **Backend**
 - Node.js
 - Express.js
 - MongoDB + Mongoose
-- bcrypt
 - jsonwebtoken
 - cors
-- dotenv
-- express-validator (optional)
 - multer(file upload)
 ---
 
@@ -27,9 +24,8 @@
 - Register  
 - Login  
 - JWT token generation  
-- Password hashing  
 - Protected routes  
-- Role-based authentication: **admin** / **user**
+- Role-based authentication: **recruiter** / **user**
 
 ---
 
@@ -50,7 +46,6 @@ Users can:
   - Location  
   - Experience  
   - Salary  
-- Pagination  
 - Sorting  
 
 ---
