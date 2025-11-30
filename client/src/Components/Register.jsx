@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRegisterUserMutation } from "../Features/apiSlice";
 import { useNavigate } from "react-router-dom";
-import "./register.css";
+import "./Register.css";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -41,7 +41,7 @@ export default function Register() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="register-form">
        <h2>Register</h2>
 
         <input

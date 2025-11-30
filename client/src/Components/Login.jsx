@@ -34,14 +34,10 @@ export default function Login() {
     return (
   <div className="login-container">
     <div className="login-box">
-
       {/* LEFT SIDE FORM */}
       <div className="login-left">
         <h2>Login</h2>
-        <p>
-          Don’t have an account? <a href="/register">Create your account</a>
-        </p>
-
+        
         <form onSubmit={handleSubmit}>
           <input
             name="email"
@@ -62,9 +58,14 @@ export default function Login() {
           />
 
           <button type="submit">Login</button>
+          <br />
+          <br />
+          <p>
+          Don’t have an account? <a href="/register">Create your account</a>
+        </p>
         </form>
       </div>
-
+        
       {/* RIGHT SIDE WELCOME PANEL */}
       <div className="login-right">
        
