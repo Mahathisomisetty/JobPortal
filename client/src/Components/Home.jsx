@@ -65,7 +65,7 @@ const jobs = [
     category: 'Graphics',
     type: 'Freelance',
     time: '4 Hr Ago',
-    color: 'hsl(280 70% 50%)',
+    color: 'hsl(262 80% 55%)',
   },
   {
     id: 4,
@@ -85,7 +85,7 @@ const jobs = [
     category: 'Marketing',
     type: 'Freelance',
     time: '6 Hr Ago',
-    color: 'hsl(270 65% 50%)',
+    color: 'hsl(262 80% 55%)',
   },
   {
     id: 6,
@@ -179,7 +179,7 @@ const Home = () => {
           <h2 className="home-section-title">Choose Your Category</h2>
 
           <p className="home-section-desc">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Browse job categories to find the roles that match your interests and skills.
           </p>
         </div>
 
@@ -203,7 +203,7 @@ const Home = () => {
           <h2 className="home-section-title">Jobs You May Be Interested In</h2>
 
           <p className="home-section-desc">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Discover roles that align with your profile, experience, and career goals.
           </p>
         </div>
 

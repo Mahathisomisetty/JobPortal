@@ -9,6 +9,7 @@
 
 /* NAVBAR WRAPPER */
 .navbar {
+  
   width: 100%;
   height: 80px;
   background: linear-gradient(135deg, #5e089b, #7925c8, #7f59cb);
@@ -24,8 +25,7 @@
   font-family: "Poppins", sans-serif;
 
   /* Rounded bottom like footer style */
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+ 
   border-bottom: 2px solid white;
 }
 
@@ -33,6 +33,7 @@
 .nav-left {
   display: flex;
   align-items: center;
+ 
 }
 
 .nav-left .brand {
