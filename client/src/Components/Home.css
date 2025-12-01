@@ -429,7 +429,7 @@
 
 .home-partner-logo {
   width: 120px;
-  filter: grayscale(100%);
+  /* filter: grayscale(100%); */
   opacity: 0.8;
   transition: all 0.3s ease;
 }
