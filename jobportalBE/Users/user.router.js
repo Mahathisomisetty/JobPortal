@@ -75,5 +75,21 @@ router.put("/updateUser/:id", async (req, res) => {
     res.status(500).send({ msg: "Error updating user" });
   }
 });
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const user = await userModel.findByIdAndDelete(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    res.json({ msg: "Account deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
 
 module.exports = router;
