@@ -4,33 +4,40 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-// ⭐ Correct Order of Middleware
-app.use(cors());
-app.use(express.json()); 
+// ⭐ CORS - allow frontend (you can tighten later)
+app.use(cors({
+  origin: "*",        // or ["https://your-frontend.vercel.app", "http://localhost:3000"]
+  credentials: true,
+}));
+
+// ⭐ Body parsers
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // ⭐ Serve uploaded files
-app.use("/uploads", express.static("uploads"));   // ⭐ ADD THIS
+app.use("/uploads", express.static("uploads"));
 
 // MongoDB connection
-var mongooseConnection = require("./mongodbConnection");
+require("./mongodbConnection");
 
 // Routers
-var userRouter = require("./Users/user.router");
-var authRouter = require("./Users/auth.routes");
+const userRouter = require("./Users/user.router");
+const authRouter = require("./Users/auth.routes");
 const jobRoutes = require("./Jobs/jobs.routes");
 const applyRoutes = require("./Users/apply.routes");
-const uploadRoutes = require("./Users/uploadfile.route"); // ⭐ ADD THIS
+const uploadRoutes = require("./Users/uploadfile.route");
 
 // Routes
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/jobs", jobRoutes);
 app.use("/applyjob", applyRoutes);
-app.use("/", uploadRoutes); // ⭐ ADD THIS
+app.use("/", uploadRoutes);
 
-// Server
-app.listen(3500, () => {
-  console.log("server running on http://localhost:3500");
+// ⭐ PORT for Render
+const PORT = process.env.PORT || 3500;
+
+app.listen(PORT, () => {
+  console.log(`server running on http://localhost:${PORT}`);
 });

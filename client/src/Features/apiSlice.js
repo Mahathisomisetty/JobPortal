@@ -6,7 +6,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3500",
+    baseUrl: "https://jobportal-backend-1z62.onrender.com/",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {
