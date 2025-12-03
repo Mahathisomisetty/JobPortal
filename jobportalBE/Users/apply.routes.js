@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Application = require("../Applications/application.model");
 const Job = require("../Jobs/jobs.model.js");
-const User = require("../Users/user.model.js");   // ⭐ REQUIRED FIX
+const User = require("../Users/user.model.js");   
 const auth = require("../Users/auth.middleware");
 
 // APPLY FOR JOB
