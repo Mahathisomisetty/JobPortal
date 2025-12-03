@@ -17,10 +17,10 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-title">Quick Links</h3>
           <ul className="footer-list">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">Jobs</a></li>
             <li><a href="login">Login</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="register">Register</a></li>
           </ul>
         </div>
 

@@ -5,7 +5,7 @@ import heroBg from '../assets/hero-bg.png';
 import reactDeveloper from '../assets/reactdeveloper.png';
 import backendNode from '../assets/backendnode.png';
 import productDesigner from '../assets/productdesigner.png';
-
+import image from "../assets/image.png";
 import { 
   Calculator, 
   GraduationCap, 
@@ -146,7 +146,8 @@ const partners = [
   "https://img.icons8.com/color/96/amazon.png",
   "https://img.icons8.com/color/96/microsoft.png",
   "https://img.icons8.com/color/96/meta.png",
-  "https://img.icons8.com/color/96/ibm.png"
+  "https://img.icons8.com/color/96/ibm.png",
+ 
 ];
 
 const Home = () => {
