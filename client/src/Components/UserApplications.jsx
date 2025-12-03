@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetUserApplicationsQuery } from "../Features/apiSlice";
 import "./UserApplications.css"
+
 export default function UserApplications() {
   const userId = localStorage.getItem("userId");
 
@@ -10,6 +11,17 @@ export default function UserApplications() {
     isError,
     refetch
   } = useGetUserApplicationsQuery(userId, { skip: !userId });
+
+  // ⭐ Auto-refresh when Apply button triggers event
+  useEffect(() => {
+    const refreshHandler = () => {
+      refetch();
+    };
+
+    window.addEventListener("applicationsUpdated", refreshHandler);
+
+    return () => window.removeEventListener("applicationsUpdated", refreshHandler);
+  }, [refetch]);
 
   if (isLoading) return <h2>Loading applications...</h2>;
   if (isError) return <h2>Error loading applications</h2>;
@@ -31,30 +43,29 @@ export default function UserApplications() {
   }
 
   return (
-   <div className="applications-container">
-  <h1>My Applications</h1>
+    <div className="applications-container">
+      <h1>My Applications</h1>
 
-  {apps.length === 0 && <p className="no-apps">No applications found.</p>}
+      {apps.length === 0 && <p className="no-apps">No applications found.</p>}
 
-  {apps.map((app, idx) => (
-    <div key={idx} className="card">
+      {apps.map((app, idx) => (
+        <div key={idx} className="card">
 
-      <h3>{app.jobId?.title}</h3>
-      <p className="company-name">{app.jobId?.company}</p>
-      <p className="date">Applied on: {new Date(app.appliedAt).toLocaleDateString()}</p>
+          <h3>{app.jobId?.title}</h3>
+          <p className="company-name">{app.jobId?.company}</p>
+          <p className="date">Applied on: {new Date(app.appliedAt).toLocaleDateString()}</p>
 
-      <span className="status-badge">Applied</span>
+          <span className="status-badge">Applied</span>
 
-      <button
-        onClick={() => handleWithdraw(app._id)}
-        className="withdraw-btn"
-      >
-        Withdraw Application
-      </button>
+          <button
+            onClick={() => handleWithdraw(app._id)}
+            className="withdraw-btn"
+          >
+            Withdraw Application
+          </button>
 
+        </div>
+      ))}
     </div>
-  ))}
-</div>
-
   );
 }

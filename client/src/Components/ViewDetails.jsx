@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetJobByIdQuery } from "../Features/apiSlice";
 import "./ViewDetails.css"
+
 export default function ViewDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function ViewDetails() {
       return navigate("/login");
     }
 
-    const res = await fetch("http://localhost:3500/applyjob/apply", {
+    const res = await fetch("https://jobportal-backend-1z62.onrender.com/applyjob/apply", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,9 +35,7 @@ export default function ViewDetails() {
     const data = await res.json();
 
     if (data.msg === "Applied Successfully!") {
-      // ⭐ TRIGGER auto refresh in UserApplications.jsx
       window.dispatchEvent(new Event("applicationsUpdated"));
-
       alert("You applied successfully!");
     } else {
       alert(data.msg);
