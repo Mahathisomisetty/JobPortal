@@ -38,7 +38,7 @@ export default function Profile() {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:3500/users/delete/${userId}`, {
+      const response = await fetch(`https://jobportal-backend-1z62.onrender.com/users/delete/${userId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -119,7 +119,7 @@ export default function Profile() {
           <div className="resume-row">
             {user.profile.resume ? (
               <a
-                href={`http://localhost:3500${user.profile.resume}`}
+                href={`https://jobportal-backend-1z62.onrender.com${user.profile.resume}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="resume-btn"

@@ -64,7 +64,7 @@ export default function ApplicationsOverview() {
             <strong>Resume:</strong>{" "}
             {app.resume ? (
               <a
-                href={`http://localhost:3500${app.resume}`}
+                href={`https://jobportal-backend-1z62.onrender.com${app.resume}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "blue", textDecoration: "underline" }}
