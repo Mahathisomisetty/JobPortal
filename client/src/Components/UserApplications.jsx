@@ -28,7 +28,7 @@ export default function UserApplications() {
 
   // ⭐ Withdraw Function
   async function handleWithdraw(appId) {
-    const res = await fetch(`http://localhost:3500/applyjob/withdraw/${appId}`, {
+    const res = await fetch(`https://jobportal-backend-1z62.onrender.com/applyjob/withdraw/${appId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
