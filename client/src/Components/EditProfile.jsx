@@ -5,7 +5,7 @@ import {
   useUpdateUserMutation,
   useUploadPDFMutation,
 } from "../Features/apiSlice";
-import "./editprofile.css";
+import "./EditProfile.css";
 
 export default function EditProfile() {
   const userId = localStorage.getItem("userId");
