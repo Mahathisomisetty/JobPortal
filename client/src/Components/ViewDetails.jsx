@@ -8,7 +8,6 @@ export default function ViewDetails() {
   const navigate = useNavigate();
   const { data: job, isLoading, isError } = useGetJobByIdQuery(id);
 
-  const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
@@ -20,13 +19,13 @@ export default function ViewDetails() {
   if (!job) return <h2>No job found</h2>;
 
   const handleApply = async () => {
-    if (!user || !token) {
+    if (!token) {
       alert("Please login first");
       return navigate("/login");
     }
 
-    // ⭐ CHECK IF RESUME IS UPLOADED
-    if (!userData?.resume) {
+    // ⭐ FIXED: Correct resume check
+    if (!userData?.profile?.resume) {
       alert("Please upload your resume or complete your profile before applying.");
       return navigate("/edit-profile");
     }
