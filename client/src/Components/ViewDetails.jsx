@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useGetJobByIdQuery } from "../Features/apiSlice";
-import "./ViewDetails.css"
+import { useGetJobByIdQuery, useGetUserByIdQuery } from "../Features/apiSlice";
+import "./ViewDetails.css";
 
 export default function ViewDetails() {
   const { id } = useParams();
@@ -10,6 +10,10 @@ export default function ViewDetails() {
 
   const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+
+  // ⭐ Fetch user details for resume check
+  const { data: userData } = useGetUserByIdQuery(userId, { skip: !userId });
 
   if (isLoading) return <h2>Loading job details...</h2>;
   if (isError) return <h2>Error fetching job details.</h2>;
@@ -21,16 +25,25 @@ export default function ViewDetails() {
       return navigate("/login");
     }
 
-    const res = await fetch("https://jobportal-backend-1z62.onrender.com/applyjob/apply", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        jobId: job._id,
-      }),
-    });
+    // ⭐ CHECK IF RESUME IS UPLOADED
+    if (!userData?.resume) {
+      alert("Please upload your resume or complete your profile before applying.");
+      return navigate("/edit-profile");
+    }
+
+    const res = await fetch(
+      "https://jobportal-backend-1z62.onrender.com/applyjob/apply",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          jobId: job._id,
+        }),
+      }
+    );
 
     const data = await res.json();
 
