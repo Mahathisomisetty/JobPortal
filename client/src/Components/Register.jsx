@@ -32,7 +32,7 @@ export default function Register() {
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", res.data.user.id);
-        localStorage.setItem("role", res.data.user.role);   // ⭐ Save role
+        localStorage.setItem("role", res.data.user.role);   
       }
 
       setTimeout(() => navigate("/"), 1000);
@@ -71,7 +71,7 @@ export default function Register() {
           required
         />
 
-        {/* ⭐ Role Dropdown */}
+        {/*  Role Dropdown */}
         <select name="role" value={form.role} onChange={handleChange}>
           <option value="user">User</option>
           <option value="recruiter">Recruiter</option>
