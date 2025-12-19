@@ -23,7 +23,7 @@ export default function Login() {
       // Save userId
       localStorage.setItem("userId", res.data.user.id);
 
-      // ⭐ SEND EVERYONE TO HOME PAGE
+      //  SEND EVERYONE TO HOME PAGE
       navigate("/"); 
 
     } else {
@@ -68,7 +68,6 @@ export default function Login() {
         
       {/* RIGHT SIDE WELCOME PANEL */}
       <div className="login-right">
-       
       </div>
     </div>
   </div>

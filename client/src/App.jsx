@@ -31,11 +31,10 @@ export default function App() {
         <Route path="/userApplications" element={<UserApplications />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/job/:id" element={<ViewDetails />} />
-        {/* ⭐ RECRUITER ONLY PAGE */}
+        {/*  ONLY RECRUITER  PAGE */}
         <Route path="/post-job" element={<PostJob />} />
         <Route path="/application-overview" element={<ApplicationsOverview/>}/>
       </Routes>
-
       <Footer />
     </>
   );

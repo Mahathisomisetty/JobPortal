@@ -8,7 +8,7 @@ export default function Register() {
     fullname: "",
     email: "",
     password: "",
-    role: "user"   // ⭐ default role
+    role: "user"   //  default role
   });
 
   const [registerUser, { isLoading, error }] = useRegisterUserMutation();
