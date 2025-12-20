@@ -1,7 +1,4 @@
-// File: backend/Jobs/job.model.js
-
 const mongoose = require("mongoose");
-
 const jobSchema = new mongoose.Schema({
   title: String,
   company: String,

@@ -19,12 +19,12 @@ var userSchema = mongoose.Schema({
   education: [{ type: String }],
   location: { type: String },
   company: { type: String, default: "" },
-  certifications: [{ type: String }],   // ⭐ FIXED HERE
+  certifications: [{ type: String }],   // 
   isVerified: { type: Boolean, default: false },
 },
 });
 
-// ⭐ FIXED MODEL NAME (User)
+//model name:usermodel
 var userModel = mongoose.model("User", userSchema);
 
 module.exports = userModel;

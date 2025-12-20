@@ -7,9 +7,9 @@ const onlyRecruiter = require("../Users/recruiter.middleware");
 // Import job model (must be inside same folder)
 const Job = require("./jobs.model");
 
-// -------------------------------------
+
 // CREATE JOB  →  POST /jobs/create
-// -------------------------------------
+
 router.post("/create", auth, onlyRecruiter, async (req, res) => {
   try {
     const job = new Job({
@@ -30,9 +30,8 @@ router.post("/create", auth, onlyRecruiter, async (req, res) => {
   }
 });
 
-// -------------------------------------
 // GET ALL JOBS  →  GET /jobs/all
-// -------------------------------------
+
 router.get("/all", async (req, res) => {
   try {
     const jobs = await Job.find().sort({ createdAt: -1 });
@@ -52,9 +51,9 @@ router.get("/getJob/:id", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-// -------------------------------------
+
 // GET JOBS OF ONE RECRUITER →  GET /jobs/recruiter/:id
-// -------------------------------------
+
 router.get("/recruiter/:id", auth, onlyRecruiter, async (req, res) => {
   try {
     const jobs = await Job.find({ postedBy: req.params.id })
@@ -66,9 +65,9 @@ router.get("/recruiter/:id", auth, onlyRecruiter, async (req, res) => {
     res.status(500).json({ msg: "Error fetching recruiter jobs" });
   }
 });
-// -------------------------------------
+
 // UPDATE JOB → PUT /jobs/update/:id
-// -------------------------------------
+
 router.put("/update/:id", auth, onlyRecruiter, async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
@@ -90,9 +89,9 @@ router.put("/update/:id", auth, onlyRecruiter, async (req, res) => {
     res.status(500).send({ msg: "Error updating job", err });
   }
 });
-// -------------------------------------
+
 // DELETE JOB → DELETE /jobs/delete/:id
-// -------------------------------------
+
 router.delete("/delete/:id", auth, onlyRecruiter, async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);

@@ -15,8 +15,6 @@ module.exports = async function (req, res, next) {
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);
-
-    // ⭐ FIX: support both "id" and "_id"
     const userId = decoded._id || decoded.id;
 
     if (!userId) {

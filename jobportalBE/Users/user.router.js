@@ -27,12 +27,12 @@ router.get("/getUser/:id", async (req, res) => {
   }
 });
 
-// UPDATE USER (🔥 FIXED for nested profile fields)
+//update user
 router.put("/updateUser/:id", async (req, res) => {
   try {
     const userId = req.params.id;
 
-    // Build update object safely for nested fields
+    // update object 
     const updateData = {
       fullname: req.body.fullname,
       phonenumber: req.body.phonenumber,
@@ -75,6 +75,7 @@ router.put("/updateUser/:id", async (req, res) => {
     res.status(500).send({ msg: "Error updating user" });
   }
 });
+//delete
 router.delete("/delete/:id", async (req, res) => {
   try {
     const userId = req.params.id;
