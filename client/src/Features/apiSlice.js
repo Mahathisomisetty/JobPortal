@@ -103,7 +103,7 @@ export const apiSlice = createApi({
       query: (userId) => `/applyjob/user/${userId}`,
     }),
 
-    // ⭐ UPLOAD PDF FILE
+    //  UPLOAD PDF FILE
     uploadPDF: builder.mutation({
       query: (file) => {
         const formData = new FormData();
@@ -117,7 +117,7 @@ export const apiSlice = createApi({
       },
     }),
 
-    // ⭐ GET APPLICATIONS FOR RECRUITER (APPLICANTS LIST)
+    //  GET APPLICATIONS FOR RECRUITER (APPLICANTS LIST)
     getRecruiterApplications: builder.query({
       query: (recruiterId) => `/applyjob/recruiter/${recruiterId}`,
     }),
