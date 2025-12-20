@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//  Serve uploaded files (PDF/Images)
+//  uploaded files (PDF/Images)
 app.use("/uploads", express.static("uploads"));
 
 //  MongoDB connection
@@ -55,9 +55,9 @@ app.get("/", (req, res) => {
 cron.schedule("*/5 * * * *", async () => {
   try {
     await axios.get("https://jobportal-backend-1z62.onrender.com");
-    console.log("🔄 Backend pinged to stay awake");
+    console.log(" Backend pinged to stay awake");
   } catch (error) {
-    console.log("⚠️ Ping failed:", error.message);
+    console.log(" Ping failed:", error.message);
   }
 });
 
